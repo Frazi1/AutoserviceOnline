@@ -1,0 +1,3 @@
+[submodule "EntityMysqlSeed"]
+	path = EntityMysqlSeed
+	url = https://github.com/Frazi1/EntityMysqlSeed

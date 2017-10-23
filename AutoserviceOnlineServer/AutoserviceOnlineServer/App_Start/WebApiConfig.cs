@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using AutoserviceOnlineServer.Formatters;
 
 namespace AutoserviceOnlineServer
 {
@@ -13,6 +14,7 @@ namespace AutoserviceOnlineServer
 
             // Маршруты веб-API
             config.MapHttpAttributeRoutes();
+            config.Formatters.Add(new BrowserJsonFormatter());
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

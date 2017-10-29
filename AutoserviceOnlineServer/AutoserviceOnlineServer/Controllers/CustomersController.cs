@@ -12,44 +12,44 @@ using DataAccess;
 
 namespace AutoserviceOnlineServer.Controllers
 {
-    public class CarsController : ApiController
+    public class CustomersController : ApiController
     {
         private AutoserviceDb db = new AutoserviceDb();
 
-        // GET: api/Cars
-        public IQueryable<car> Getcar()
+        // GET: api/Customers
+        public IQueryable<customer> Getcustomer()
         {
-            return db.car;
+            return db.customer;
         }
 
-        // GET: api/Cars/5
-        [ResponseType(typeof(car))]
-        public IHttpActionResult Getcar(int id)
+        // GET: api/Customers/5
+        [ResponseType(typeof(customer))]
+        public IHttpActionResult Getcustomer(int id)
         {
-            car car = db.car.Find(id);
-            if (car == null)
+            customer customer = db.customer.Find(id);
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            return Ok(car);
+            return Ok(customer);
         }
 
-        // PUT: api/Cars/5
+        // PUT: api/Customers/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult Putcar(int id, car car)
+        public IHttpActionResult Putcustomer(int id, customer customer)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != car.id)
+            if (id != customer.id)
             {
                 return BadRequest();
             }
 
-            db.Entry(car).State = EntityState.Modified;
+            db.Entry(customer).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +57,7 @@ namespace AutoserviceOnlineServer.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!carExists(id))
+                if (!customerExists(id))
                 {
                     return NotFound();
                 }
@@ -70,50 +70,35 @@ namespace AutoserviceOnlineServer.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Cars
-        [ResponseType(typeof(car))]
-        public IHttpActionResult Postcar(car car)
+        // POST: api/Customers
+        [ResponseType(typeof(customer))]
+        public IHttpActionResult Postcustomer(customer customer)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.car.Add(car);
+            db.customer.Add(customer);
+            db.SaveChanges();
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                if (carExists(car.id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = car.id }, car);
+            return CreatedAtRoute("DefaultApi", new { id = customer.id }, customer);
         }
 
-        // DELETE: api/Cars/5
-        [ResponseType(typeof(car))]
-        public IHttpActionResult Deletecar(int id)
+        // DELETE: api/Customers/5
+        [ResponseType(typeof(customer))]
+        public IHttpActionResult Deletecustomer(int id)
         {
-            car car = db.car.Find(id);
-            if (car == null)
+            customer customer = db.customer.Find(id);
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            db.car.Remove(car);
+            db.customer.Remove(customer);
             db.SaveChanges();
 
-            return Ok(car);
+            return Ok(customer);
         }
 
         protected override void Dispose(bool disposing)
@@ -125,9 +110,9 @@ namespace AutoserviceOnlineServer.Controllers
             base.Dispose(disposing);
         }
 
-        private bool carExists(int id)
+        private bool customerExists(int id)
         {
-            return db.car.Count(e => e.id == id) > 0;
+            return db.customer.Count(e => e.id == id) > 0;
         }
     }
 }

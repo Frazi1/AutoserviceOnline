@@ -12,44 +12,44 @@ using DataAccess;
 
 namespace AutoserviceOnlineServer.Controllers
 {
-    public class CarsController : ApiController
+    public class OrdersController : ApiController
     {
         private AutoserviceDb db = new AutoserviceDb();
 
-        // GET: api/Cars
-        public IQueryable<car> Getcar()
+        // GET: api/Orders
+        public IEnumerable<order> Getorder()
         {
-            return db.car;
+            return db.order.ToList();
         }
 
-        // GET: api/Cars/5
-        [ResponseType(typeof(car))]
-        public IHttpActionResult Getcar(int id)
+        // GET: api/Orders/5
+        [ResponseType(typeof(order))]
+        public IHttpActionResult Getorder(int id)
         {
-            car car = db.car.Find(id);
-            if (car == null)
+            order order = db.order.Find(id);
+            if (order == null)
             {
                 return NotFound();
             }
 
-            return Ok(car);
+            return Ok(order);
         }
 
-        // PUT: api/Cars/5
+        // PUT: api/Orders/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult Putcar(int id, car car)
+        public IHttpActionResult Putorder(int id, order order)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != car.id)
+            if (id != order.id)
             {
                 return BadRequest();
             }
 
-            db.Entry(car).State = EntityState.Modified;
+            db.Entry(order).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +57,7 @@ namespace AutoserviceOnlineServer.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!carExists(id))
+                if (!orderExists(id))
                 {
                     return NotFound();
                 }
@@ -70,50 +70,35 @@ namespace AutoserviceOnlineServer.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Cars
-        [ResponseType(typeof(car))]
-        public IHttpActionResult Postcar(car car)
+        // POST: api/Orders
+        [ResponseType(typeof(order))]
+        public IHttpActionResult Postorder(order order)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.car.Add(car);
+            db.order.Add(order);
+            db.SaveChanges();
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                if (carExists(car.id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = car.id }, car);
+            return CreatedAtRoute("DefaultApi", new { id = order.id }, order);
         }
 
-        // DELETE: api/Cars/5
-        [ResponseType(typeof(car))]
-        public IHttpActionResult Deletecar(int id)
+        // DELETE: api/Orders/5
+        [ResponseType(typeof(order))]
+        public IHttpActionResult Deleteorder(int id)
         {
-            car car = db.car.Find(id);
-            if (car == null)
+            order order = db.order.Find(id);
+            if (order == null)
             {
                 return NotFound();
             }
 
-            db.car.Remove(car);
+            db.order.Remove(order);
             db.SaveChanges();
 
-            return Ok(car);
+            return Ok(order);
         }
 
         protected override void Dispose(bool disposing)
@@ -125,9 +110,9 @@ namespace AutoserviceOnlineServer.Controllers
             base.Dispose(disposing);
         }
 
-        private bool carExists(int id)
+        private bool orderExists(int id)
         {
-            return db.car.Count(e => e.id == id) > 0;
+            return db.order.Count(e => e.id == id) > 0;
         }
     }
 }

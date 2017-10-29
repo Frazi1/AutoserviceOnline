@@ -12,44 +12,44 @@ using DataAccess;
 
 namespace AutoserviceOnlineServer.Controllers
 {
-    public class CarsController : ApiController
+    public class WorkmenController : ApiController
     {
         private AutoserviceDb db = new AutoserviceDb();
 
-        // GET: api/Cars
-        public IQueryable<car> Getcar()
+        // GET: api/Workmen
+        public IQueryable<workman> Getworkman()
         {
-            return db.car;
+            return db.workman;
         }
 
-        // GET: api/Cars/5
-        [ResponseType(typeof(car))]
-        public IHttpActionResult Getcar(int id)
+        // GET: api/Workmen/5
+        [ResponseType(typeof(workman))]
+        public IHttpActionResult Getworkman(int id)
         {
-            car car = db.car.Find(id);
-            if (car == null)
+            workman workman = db.workman.Find(id);
+            if (workman == null)
             {
                 return NotFound();
             }
 
-            return Ok(car);
+            return Ok(workman);
         }
 
-        // PUT: api/Cars/5
+        // PUT: api/Workmen/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult Putcar(int id, car car)
+        public IHttpActionResult Putworkman(int id, workman workman)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != car.id)
+            if (id != workman.id)
             {
                 return BadRequest();
             }
 
-            db.Entry(car).State = EntityState.Modified;
+            db.Entry(workman).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +57,7 @@ namespace AutoserviceOnlineServer.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!carExists(id))
+                if (!workmanExists(id))
                 {
                     return NotFound();
                 }
@@ -70,50 +70,35 @@ namespace AutoserviceOnlineServer.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Cars
-        [ResponseType(typeof(car))]
-        public IHttpActionResult Postcar(car car)
+        // POST: api/Workmen
+        [ResponseType(typeof(workman))]
+        public IHttpActionResult Postworkman(workman workman)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.car.Add(car);
+            db.workman.Add(workman);
+            db.SaveChanges();
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                if (carExists(car.id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = car.id }, car);
+            return CreatedAtRoute("DefaultApi", new { id = workman.id }, workman);
         }
 
-        // DELETE: api/Cars/5
-        [ResponseType(typeof(car))]
-        public IHttpActionResult Deletecar(int id)
+        // DELETE: api/Workmen/5
+        [ResponseType(typeof(workman))]
+        public IHttpActionResult Deleteworkman(int id)
         {
-            car car = db.car.Find(id);
-            if (car == null)
+            workman workman = db.workman.Find(id);
+            if (workman == null)
             {
                 return NotFound();
             }
 
-            db.car.Remove(car);
+            db.workman.Remove(workman);
             db.SaveChanges();
 
-            return Ok(car);
+            return Ok(workman);
         }
 
         protected override void Dispose(bool disposing)
@@ -125,9 +110,9 @@ namespace AutoserviceOnlineServer.Controllers
             base.Dispose(disposing);
         }
 
-        private bool carExists(int id)
+        private bool workmanExists(int id)
         {
-            return db.car.Count(e => e.id == id) > 0;
+            return db.workman.Count(e => e.id == id) > 0;
         }
     }
 }

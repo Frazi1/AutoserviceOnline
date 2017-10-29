@@ -12,44 +12,44 @@ using DataAccess;
 
 namespace AutoserviceOnlineServer.Controllers
 {
-    public class CarsController : ApiController
+    public class TasksController : ApiController
     {
         private AutoserviceDb db = new AutoserviceDb();
 
-        // GET: api/Cars
-        public IQueryable<car> Getcar()
+        // GET: api/Tasks
+        public IQueryable<task> Gettask()
         {
-            return db.car;
+            return db.task;
         }
 
-        // GET: api/Cars/5
-        [ResponseType(typeof(car))]
-        public IHttpActionResult Getcar(int id)
+        // GET: api/Tasks/5
+        [ResponseType(typeof(task))]
+        public IHttpActionResult Gettask(int id)
         {
-            car car = db.car.Find(id);
-            if (car == null)
+            task task = db.task.Find(id);
+            if (task == null)
             {
                 return NotFound();
             }
 
-            return Ok(car);
+            return Ok(task);
         }
 
-        // PUT: api/Cars/5
+        // PUT: api/Tasks/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult Putcar(int id, car car)
+        public IHttpActionResult Puttask(int id, task task)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != car.id)
+            if (id != task.id)
             {
                 return BadRequest();
             }
 
-            db.Entry(car).State = EntityState.Modified;
+            db.Entry(task).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +57,7 @@ namespace AutoserviceOnlineServer.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!carExists(id))
+                if (!taskExists(id))
                 {
                     return NotFound();
                 }
@@ -70,50 +70,35 @@ namespace AutoserviceOnlineServer.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Cars
-        [ResponseType(typeof(car))]
-        public IHttpActionResult Postcar(car car)
+        // POST: api/Tasks
+        [ResponseType(typeof(task))]
+        public IHttpActionResult Posttask(task task)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.car.Add(car);
+            db.task.Add(task);
+            db.SaveChanges();
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                if (carExists(car.id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = car.id }, car);
+            return CreatedAtRoute("DefaultApi", new { id = task.id }, task);
         }
 
-        // DELETE: api/Cars/5
-        [ResponseType(typeof(car))]
-        public IHttpActionResult Deletecar(int id)
+        // DELETE: api/Tasks/5
+        [ResponseType(typeof(task))]
+        public IHttpActionResult Deletetask(int id)
         {
-            car car = db.car.Find(id);
-            if (car == null)
+            task task = db.task.Find(id);
+            if (task == null)
             {
                 return NotFound();
             }
 
-            db.car.Remove(car);
+            db.task.Remove(task);
             db.SaveChanges();
 
-            return Ok(car);
+            return Ok(task);
         }
 
         protected override void Dispose(bool disposing)
@@ -125,9 +110,9 @@ namespace AutoserviceOnlineServer.Controllers
             base.Dispose(disposing);
         }
 
-        private bool carExists(int id)
+        private bool taskExists(int id)
         {
-            return db.car.Count(e => e.id == id) > 0;
+            return db.task.Count(e => e.id == id) > 0;
         }
     }
 }

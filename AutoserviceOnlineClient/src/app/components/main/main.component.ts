@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {OrdersService} from "../../services/orders/orders.service";
+import {Component, OnInit} from '@angular/core';
+import {OrdersService} from '../../services/orders.service';
+import {Order} from '../../helpers/classes/models/order';
 
 @Component({
   selector: 'app-main',
@@ -8,12 +9,15 @@ import {OrdersService} from "../../services/orders/orders.service";
 })
 export class MainComponent implements OnInit {
 
-  constructor(private ordersService: OrdersService) { }
+  public orders: Order[];
+
+  constructor(private ordersService: OrdersService) {
+  }
 
   public getOrders(): void {
-    this.ordersService.getOrders();
+    this.ordersService.getItems()
+      .then(value => console.log(value));
   }
   ngOnInit() {
   }
-
 }

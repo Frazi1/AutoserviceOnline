@@ -12,21 +12,23 @@ using DataAccess;
 
 namespace AutoserviceOnlineServer.Controllers
 {
+    
     public class CarsController : ApiController
     {
-        private AutoserviceDb db = new AutoserviceDb();
+        private AutoserviceDb _db = new AutoserviceDb();
 
         // GET: api/Cars
-        public IQueryable<car> Getcar()
+        public IQueryable<Car> Getcar()
         {
-            return db.car;
+            _db.Database.CreateIfNotExists();
+            return _db.Car;
         }
 
         // GET: api/Cars/5
-        [ResponseType(typeof(car))]
+        [ResponseType(typeof(Car))]
         public IHttpActionResult Getcar(int id)
         {
-            car car = db.car.Find(id);
+            Car car = _db.Car.Find(id);
             if (car == null)
             {
                 return NotFound();
@@ -37,27 +39,27 @@ namespace AutoserviceOnlineServer.Controllers
 
         // PUT: api/Cars/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult Putcar(int id, car car)
+        public IHttpActionResult Putcar(int id, Car car)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != car.id)
+            if (id != car.Id)
             {
                 return BadRequest();
             }
 
-            db.Entry(car).State = EntityState.Modified;
+            _db.Entry(car).State = EntityState.Modified;
 
             try
             {
-                db.SaveChanges();
+                _db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!carExists(id))
+                if (!CarExists(id))
                 {
                     return NotFound();
                 }
@@ -71,23 +73,23 @@ namespace AutoserviceOnlineServer.Controllers
         }
 
         // POST: api/Cars
-        [ResponseType(typeof(car))]
-        public IHttpActionResult Postcar(car car)
+        [ResponseType(typeof(Car))]
+        public IHttpActionResult Postcar(Car car)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.car.Add(car);
+            _db.Car.Add(car);
 
             try
             {
-                db.SaveChanges();
+                _db.SaveChanges();
             }
             catch (DbUpdateException)
             {
-                if (carExists(car.id))
+                if (CarExists(car.Id))
                 {
                     return Conflict();
                 }
@@ -97,21 +99,21 @@ namespace AutoserviceOnlineServer.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = car.id }, car);
+            return CreatedAtRoute("DefaultApi", new { id = car.Id }, car);
         }
 
         // DELETE: api/Cars/5
-        [ResponseType(typeof(car))]
+        [ResponseType(typeof(Car))]
         public IHttpActionResult Deletecar(int id)
         {
-            car car = db.car.Find(id);
+            Car car = _db.Car.Find(id);
             if (car == null)
             {
                 return NotFound();
             }
 
-            db.car.Remove(car);
-            db.SaveChanges();
+            _db.Car.Remove(car);
+            _db.SaveChanges();
 
             return Ok(car);
         }
@@ -120,14 +122,14 @@ namespace AutoserviceOnlineServer.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }
 
-        private bool carExists(int id)
+        private bool CarExists(int id)
         {
-            return db.car.Count(e => e.id == id) > 0;
+            return _db.Car.Count(e => e.Id == id) > 0;
         }
     }
 }

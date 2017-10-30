@@ -14,19 +14,19 @@ namespace AutoserviceOnlineServer.Controllers
 {
     public class OrdersController : ApiController
     {
-        private AutoserviceDb db = new AutoserviceDb();
+        private AutoserviceDb _db = new AutoserviceDb();
 
         // GET: api/Orders
-        public IEnumerable<order> Getorder()
+        public IEnumerable<Order> Getorder()
         {
-            return db.order.ToList();
+            return _db.Order.ToList();
         }
 
         // GET: api/Orders/5
-        [ResponseType(typeof(order))]
+        [ResponseType(typeof(Order))]
         public IHttpActionResult Getorder(int id)
         {
-            order order = db.order.Find(id);
+            Order order = _db.Order.Find(id);
             if (order == null)
             {
                 return NotFound();
@@ -37,27 +37,27 @@ namespace AutoserviceOnlineServer.Controllers
 
         // PUT: api/Orders/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult Putorder(int id, order order)
+        public IHttpActionResult Putorder(int id, Order order)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != order.id)
+            if (id != order.Id)
             {
                 return BadRequest();
             }
 
-            db.Entry(order).State = EntityState.Modified;
+            _db.Entry(order).State = EntityState.Modified;
 
             try
             {
-                db.SaveChanges();
+                _db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!orderExists(id))
+                if (!OrderExists(id))
                 {
                     return NotFound();
                 }
@@ -71,32 +71,32 @@ namespace AutoserviceOnlineServer.Controllers
         }
 
         // POST: api/Orders
-        [ResponseType(typeof(order))]
-        public IHttpActionResult Postorder(order order)
+        [ResponseType(typeof(Order))]
+        public IHttpActionResult Postorder(Order order)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.order.Add(order);
-            db.SaveChanges();
+            _db.Order.Add(order);
+            _db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = order.id }, order);
+            return CreatedAtRoute("DefaultApi", new { id = order.Id }, order);
         }
 
         // DELETE: api/Orders/5
-        [ResponseType(typeof(order))]
+        [ResponseType(typeof(Order))]
         public IHttpActionResult Deleteorder(int id)
         {
-            order order = db.order.Find(id);
+            Order order = _db.Order.Find(id);
             if (order == null)
             {
                 return NotFound();
             }
 
-            db.order.Remove(order);
-            db.SaveChanges();
+            _db.Order.Remove(order);
+            _db.SaveChanges();
 
             return Ok(order);
         }
@@ -105,14 +105,14 @@ namespace AutoserviceOnlineServer.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }
 
-        private bool orderExists(int id)
+        private bool OrderExists(int id)
         {
-            return db.order.Count(e => e.id == id) > 0;
+            return _db.Order.Count(e => e.Id == id) > 0;
         }
     }
 }

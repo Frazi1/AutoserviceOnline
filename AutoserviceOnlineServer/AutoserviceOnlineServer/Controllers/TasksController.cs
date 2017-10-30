@@ -14,19 +14,19 @@ namespace AutoserviceOnlineServer.Controllers
 {
     public class TasksController : ApiController
     {
-        private AutoserviceDb db = new AutoserviceDb();
+        private AutoserviceDb _db = new AutoserviceDb();
 
         // GET: api/Tasks
-        public IQueryable<task> Gettask()
+        public IQueryable<Task> Gettask()
         {
-            return db.task;
+            return _db.Task;
         }
 
         // GET: api/Tasks/5
-        [ResponseType(typeof(task))]
+        [ResponseType(typeof(Task))]
         public IHttpActionResult Gettask(int id)
         {
-            task task = db.task.Find(id);
+            Task task = _db.Task.Find(id);
             if (task == null)
             {
                 return NotFound();
@@ -37,27 +37,27 @@ namespace AutoserviceOnlineServer.Controllers
 
         // PUT: api/Tasks/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult Puttask(int id, task task)
+        public IHttpActionResult Puttask(int id, Task task)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != task.id)
+            if (id != task.Id)
             {
                 return BadRequest();
             }
 
-            db.Entry(task).State = EntityState.Modified;
+            _db.Entry(task).State = EntityState.Modified;
 
             try
             {
-                db.SaveChanges();
+                _db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!taskExists(id))
+                if (!TaskExists(id))
                 {
                     return NotFound();
                 }
@@ -71,32 +71,32 @@ namespace AutoserviceOnlineServer.Controllers
         }
 
         // POST: api/Tasks
-        [ResponseType(typeof(task))]
-        public IHttpActionResult Posttask(task task)
+        [ResponseType(typeof(Task))]
+        public IHttpActionResult Posttask(Task task)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.task.Add(task);
-            db.SaveChanges();
+            _db.Task.Add(task);
+            _db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = task.id }, task);
+            return CreatedAtRoute("DefaultApi", new { id = task.Id }, task);
         }
 
         // DELETE: api/Tasks/5
-        [ResponseType(typeof(task))]
+        [ResponseType(typeof(Task))]
         public IHttpActionResult Deletetask(int id)
         {
-            task task = db.task.Find(id);
+            Task task = _db.Task.Find(id);
             if (task == null)
             {
                 return NotFound();
             }
 
-            db.task.Remove(task);
-            db.SaveChanges();
+            _db.Task.Remove(task);
+            _db.SaveChanges();
 
             return Ok(task);
         }
@@ -105,14 +105,14 @@ namespace AutoserviceOnlineServer.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }
 
-        private bool taskExists(int id)
+        private bool TaskExists(int id)
         {
-            return db.task.Count(e => e.id == id) > 0;
+            return _db.Task.Count(e => e.Id == id) > 0;
         }
     }
 }

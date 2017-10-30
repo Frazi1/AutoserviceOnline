@@ -14,19 +14,19 @@ namespace AutoserviceOnlineServer.Controllers
 {
     public class WorkmenController : ApiController
     {
-        private AutoserviceDb db = new AutoserviceDb();
+        private AutoserviceDb _db = new AutoserviceDb();
 
         // GET: api/Workmen
-        public IQueryable<workman> Getworkman()
+        public IQueryable<Workman> Getworkman()
         {
-            return db.workman;
+            return _db.Workman;
         }
 
         // GET: api/Workmen/5
-        [ResponseType(typeof(workman))]
+        [ResponseType(typeof(Workman))]
         public IHttpActionResult Getworkman(int id)
         {
-            workman workman = db.workman.Find(id);
+            Workman workman = _db.Workman.Find(id);
             if (workman == null)
             {
                 return NotFound();
@@ -37,27 +37,27 @@ namespace AutoserviceOnlineServer.Controllers
 
         // PUT: api/Workmen/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult Putworkman(int id, workman workman)
+        public IHttpActionResult Putworkman(int id, Workman workman)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != workman.id)
+            if (id != workman.Id)
             {
                 return BadRequest();
             }
 
-            db.Entry(workman).State = EntityState.Modified;
+            _db.Entry(workman).State = EntityState.Modified;
 
             try
             {
-                db.SaveChanges();
+                _db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!workmanExists(id))
+                if (!WorkmanExists(id))
                 {
                     return NotFound();
                 }
@@ -71,32 +71,32 @@ namespace AutoserviceOnlineServer.Controllers
         }
 
         // POST: api/Workmen
-        [ResponseType(typeof(workman))]
-        public IHttpActionResult Postworkman(workman workman)
+        [ResponseType(typeof(Workman))]
+        public IHttpActionResult Postworkman(Workman workman)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.workman.Add(workman);
-            db.SaveChanges();
+            _db.Workman.Add(workman);
+            _db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = workman.id }, workman);
+            return CreatedAtRoute("DefaultApi", new { id = workman.Id }, workman);
         }
 
         // DELETE: api/Workmen/5
-        [ResponseType(typeof(workman))]
+        [ResponseType(typeof(Workman))]
         public IHttpActionResult Deleteworkman(int id)
         {
-            workman workman = db.workman.Find(id);
+            Workman workman = _db.Workman.Find(id);
             if (workman == null)
             {
                 return NotFound();
             }
 
-            db.workman.Remove(workman);
-            db.SaveChanges();
+            _db.Workman.Remove(workman);
+            _db.SaveChanges();
 
             return Ok(workman);
         }
@@ -105,14 +105,14 @@ namespace AutoserviceOnlineServer.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }
 
-        private bool workmanExists(int id)
+        private bool WorkmanExists(int id)
         {
-            return db.workman.Count(e => e.id == id) > 0;
+            return _db.Workman.Count(e => e.Id == id) > 0;
         }
     }
 }

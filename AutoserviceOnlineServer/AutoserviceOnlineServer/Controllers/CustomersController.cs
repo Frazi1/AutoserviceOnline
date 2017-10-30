@@ -14,19 +14,19 @@ namespace AutoserviceOnlineServer.Controllers
 {
     public class CustomersController : ApiController
     {
-        private AutoserviceDb db = new AutoserviceDb();
+        private AutoserviceDb _db = new AutoserviceDb();
 
         // GET: api/Customers
-        public IQueryable<customer> Getcustomer()
+        public IQueryable<Customer> Getcustomer()
         {
-            return db.customer;
+            return _db.Customer;
         }
 
         // GET: api/Customers/5
-        [ResponseType(typeof(customer))]
+        [ResponseType(typeof(Customer))]
         public IHttpActionResult Getcustomer(int id)
         {
-            customer customer = db.customer.Find(id);
+            Customer customer = _db.Customer.Find(id);
             if (customer == null)
             {
                 return NotFound();
@@ -37,27 +37,27 @@ namespace AutoserviceOnlineServer.Controllers
 
         // PUT: api/Customers/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult Putcustomer(int id, customer customer)
+        public IHttpActionResult Putcustomer(int id, Customer customer)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != customer.id)
+            if (id != customer.Id)
             {
                 return BadRequest();
             }
 
-            db.Entry(customer).State = EntityState.Modified;
+            _db.Entry(customer).State = EntityState.Modified;
 
             try
             {
-                db.SaveChanges();
+                _db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!customerExists(id))
+                if (!CustomerExists(id))
                 {
                     return NotFound();
                 }
@@ -71,32 +71,32 @@ namespace AutoserviceOnlineServer.Controllers
         }
 
         // POST: api/Customers
-        [ResponseType(typeof(customer))]
-        public IHttpActionResult Postcustomer(customer customer)
+        [ResponseType(typeof(Customer))]
+        public IHttpActionResult Postcustomer(Customer customer)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.customer.Add(customer);
-            db.SaveChanges();
+            _db.Customer.Add(customer);
+            _db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = customer.id }, customer);
+            return CreatedAtRoute("DefaultApi", new { id = customer.Id }, customer);
         }
 
         // DELETE: api/Customers/5
-        [ResponseType(typeof(customer))]
+        [ResponseType(typeof(Customer))]
         public IHttpActionResult Deletecustomer(int id)
         {
-            customer customer = db.customer.Find(id);
+            Customer customer = _db.Customer.Find(id);
             if (customer == null)
             {
                 return NotFound();
             }
 
-            db.customer.Remove(customer);
-            db.SaveChanges();
+            _db.Customer.Remove(customer);
+            _db.SaveChanges();
 
             return Ok(customer);
         }
@@ -105,14 +105,14 @@ namespace AutoserviceOnlineServer.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }
 
-        private bool customerExists(int id)
+        private bool CustomerExists(int id)
         {
-            return db.customer.Count(e => e.id == id) > 0;
+            return _db.Customer.Count(e => e.Id == id) > 0;
         }
     }
 }

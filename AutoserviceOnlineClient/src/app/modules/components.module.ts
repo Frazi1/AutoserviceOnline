@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
-import {MainComponent} from "../../components/main/main.component";
-import {OrdersService} from "../../services/orders.service";
+import {MainComponent} from "../components/main/main.component";
+import {OrdersService} from "../services/orders.service";
 
 @NgModule({
   imports: [

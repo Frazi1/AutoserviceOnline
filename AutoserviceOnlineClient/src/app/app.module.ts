@@ -5,7 +5,7 @@ import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MaterialModule} from "./modules/material/material.module";
 import {RoutingModule} from "./modules/routing/routing.module";
-import {ComponentsModule} from "./modules/components/components.module";
+import {ComponentsModule} from "./modules/components.module";
 import {OrdersService} from "./services/orders.service";
 import {HttpModule} from "@angular/http";
 import {CustomersService} from './services/customers.service';
@@ -20,6 +20,7 @@ import {DataServiceBase} from './helpers/classes/services/data-service-base';
 import {JsonModelConverterBase} from './helpers/interfaces/json-model-converter-base';
 import {Order} from './helpers/classes/models/order';
 import {Data} from '@angular/router';
+import {ServicesModule} from './modules/services.module';
 
 // import { MainComponent } from './components/main/main.component';
 
@@ -33,19 +34,11 @@ import {Data} from '@angular/router';
     MaterialModule,
     RoutingModule,
     ComponentsModule,
-    HttpModule
+    HttpModule,
+    ServicesModule
   ],
   providers: [
-    OrdersService,
-    CustomersService,
-    TasksService,
-    WorkmenService,
-    CarsService,
-    JsonCarConverter,
-    JsonOrderConverter,
-    JsonTaskConverter,
-    JsonWorkmanConverter,
-    DataServiceBase
+
   ],
   bootstrap: [AppComponent]
 })

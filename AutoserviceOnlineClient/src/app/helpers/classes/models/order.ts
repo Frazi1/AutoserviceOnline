@@ -1,16 +1,25 @@
 export class Order {
+  get creationDate(): Date {
+    return this._creationDate;
+  }
+
+  set creationDate(value: Date) {
+    this._creationDate = value;
+  }
   private _id: number;
   private _isCompleted: boolean;
   private _carId: number;
   private _customerId: number;
   private _completionDate: Date;
+  private _creationDate: Date;
 
-  constructor(id: number, isCompleted: boolean, carId: number, customerId: number, completionDate: Date) {
+  constructor(id: number, isCompleted: boolean, carId: number, customerId: number, completionDate: Date, creationDate: Date) {
     this.id = id;
     this.isCompleted = isCompleted;
     this.carId = carId;
     this.customerId = customerId;
     this.completionDate = completionDate;
+    this.creationDate = creationDate;
   }
 
   get id(): number {

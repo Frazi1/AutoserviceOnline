@@ -18,6 +18,16 @@ export class MainComponent implements OnInit {
     this.ordersService.getItems()
       .then(value => console.log(value));
   }
+
+  public getOrder(id: number): void {
+    this.ordersService.getItem(id)
+      .then(value => console.log(value));
+  }
+
+  public addOrder(): void {
+    this.ordersService.addItem(new Order(undefined,true,1,1,undefined,undefined))
+      .then(value => console.log(value));
+  }
   ngOnInit() {
   }
 }

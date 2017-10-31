@@ -16,7 +16,7 @@ import {JsonCarConverter} from './helpers/classes/converters/json-car-converter'
 import {JsonOrderConverter} from './helpers/classes/converters/json-order-converter';
 import {JsonTaskConverter} from './helpers/classes/converters/json-task-converter';
 import {JsonWorkmanConverter} from './helpers/classes/converters/json-workman-converter';
-import {DataServiceBase} from './helpers/classes/services/data-service-base';
+import {DataServiceBase} from './services/data-service-base';
 import {JsonModelConverterBase} from './helpers/interfaces/json-model-converter-base';
 import {Order} from './helpers/classes/models/order';
 import {Data} from '@angular/router';

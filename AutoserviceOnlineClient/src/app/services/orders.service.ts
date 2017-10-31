@@ -1,12 +1,13 @@
 import {Injectable} from '@angular/core';
 import {Order} from '../helpers/classes/models/order';
-import {DataServiceBase} from '../helpers/classes/services/data-service-base';
+import {DataServiceBase} from './data-service-base';
 import {Http} from '@angular/http';
 import {URL} from './url';
 import {JsonOrderConverter} from '../helpers/classes/converters/json-order-converter';
+import {JsonOrder} from '../helpers/interfaces/json-model/json-order';
 
 @Injectable()
-export class OrdersService extends DataServiceBase<Order>{
+export class OrdersService extends DataServiceBase<Order, JsonOrder>{
 
   constructor(http: Http, converter: JsonOrderConverter) {
     super(http, converter);

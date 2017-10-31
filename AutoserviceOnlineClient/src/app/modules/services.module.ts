@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import {DataServiceBase} from '../helpers/classes/services/data-service-base';
+import {DataServiceBase} from '../services/data-service-base';
 import {JsonWorkmanConverter} from '../helpers/classes/converters/json-workman-converter';
 import {JsonTaskConverter} from '../helpers/classes/converters/json-task-converter';
 import {JsonOrderConverter} from '../helpers/classes/converters/json-order-converter';

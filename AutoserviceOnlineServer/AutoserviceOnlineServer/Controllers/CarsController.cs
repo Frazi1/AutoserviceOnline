@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using DataAccess;
+using DataAccess.Model;
 
 namespace AutoserviceOnlineServer.Controllers
 {

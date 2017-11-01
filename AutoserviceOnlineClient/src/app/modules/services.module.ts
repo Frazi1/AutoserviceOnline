@@ -4,11 +4,11 @@ import {JsonWorkmanConverter} from '../helpers/classes/converters/json-workman-c
 import {JsonTaskConverter} from '../helpers/classes/converters/json-task-converter';
 import {JsonOrderConverter} from '../helpers/classes/converters/json-order-converter';
 import {JsonCarConverter} from '../helpers/classes/converters/json-car-converter';
-import {CarsService} from '../services/cars.service';
-import {WorkmenService} from '../services/workmen.service';
-import {TasksService} from '../services/tasks.service';
-import {CustomersService} from '../services/customers.service';
-import {OrdersService} from '../services/orders.service';
+import {CarsService} from '../services/load-data-services/cars.service';
+import {WorkmenService} from '../services/load-data-services/workmen.service';
+import {TasksService} from '../services/load-data-services/tasks.service';
+import {CustomersService} from '../services/load-data-services/customers.service';
+import {OrdersService} from '../services/load-data-services/orders.service';
 import {JsonCustomerConverter} from '../helpers/classes/converters/json-customer-converter';
 
 @NgModule({

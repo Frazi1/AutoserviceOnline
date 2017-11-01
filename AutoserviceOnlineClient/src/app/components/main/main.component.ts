@@ -28,6 +28,11 @@ export class MainComponent implements OnInit {
     this.ordersService.addItem(new Order(undefined,true,1,1,undefined,undefined))
       .then(value => console.log(value));
   }
+
+  public removeOrder(): void {
+    this.ordersService.deleteItem(1)
+      .then(value => console.log(value));
+  }
   ngOnInit() {
   }
 }

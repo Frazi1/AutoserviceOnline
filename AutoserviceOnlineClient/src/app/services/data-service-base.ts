@@ -31,6 +31,20 @@ export class DataServiceBase<TModel, TJsonModel> {
       .catch(this.handleError);
   }
 
+  public deleteItem(id: number): Promise<TModel> {
+    return this.http.delete(this.endPointUrl + id)
+      .toPromise()
+      .then(value => console.log(value))
+      .catch(this.handleError);
+  }
+
+  public editItem(id: number, model: TModel): Promise<TModel> {
+    return this.http.put(this.endPointUrl + id, this.converter.getJsonFromModel(model))
+      .toPromise()
+      .then(value => console.log(value))
+      .catch(this.handleError);
+  }
+
   protected handleError(error: any): Promise<any> {
     console.error('Error occured: ', error);
     return Promise.reject(error.message | error);

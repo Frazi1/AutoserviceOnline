@@ -1,0 +1,17 @@
+@import "~styles.scss";
+.orders-container {
+  height: calc(100% - #{$navHeight});
+  display: flex;
+  //flex-direction: column-reverse;
+}
+
+.orders-list-container {
+  flex-basis: $ordersListWidth;
+  flex-grow: 1;
+  background-color: green;
+  height: 100%;
+}
+.selected-order-container {
+  flex-grow: 9;
+  background-color: red;
+}

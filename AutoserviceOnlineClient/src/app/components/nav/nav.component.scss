@@ -4,18 +4,22 @@ nav {
   background-color: $navBackgroundColor;
   font-family: "Century Gothic", serif;
   color: white;
-  height: 60px;
+  height: $navHeight;
   width: 100%;
   display: flex;
   justify-content: flex-start;
 
-  :hover {
-    background-color: darkgreen;
+   :hover {
+    background-color: $navSelectedColor;
     cursor: pointer;
   }
   a {
     cursor: pointer;
   }
+}
+
+.selected {
+  background-color: $navSelectedColor;
 }
 
 .nav-item, .nav-logo {
@@ -37,7 +41,7 @@ nav {
   padding: 0 10px;
   font-family: "Century Gothic", serif;
   font-size: 18px;
-  margin-right: 200px;
+  margin-right: 10%;
 }
 
 .nav-logo-content {

@@ -1,16 +1,17 @@
 <nav>
-  <div class="nav-logo">
+  <div (click)="navigate(STATES.STATE_MAIN)" class="nav-logo">
     <div class="nav-logo-content">
       <a>
         <span>Autoservice Online</span>
       </a>
     </div>
   </div>
-  <div class="nav-item">
+  <div (click)="navigate(STATES.STATE_ORDERS)" class="nav-item"
+       [class.selected]="isActive(STATES.STATE_ORDERS)">
     <div class="nav-item-content">
       <a>
         <span>
-          Item1
+          Orders
         </span>
       </a>
     </div>

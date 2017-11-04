@@ -2,6 +2,11 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 $navBackgroundColor: #125687;
+$navSelectedColor: #0F4671;
+
+$navHeight: 60px;
+$ordersListWidth: 200px;
+
 body {
   margin: 0;
 }

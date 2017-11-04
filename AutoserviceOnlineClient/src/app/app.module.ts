@@ -23,7 +23,6 @@ import {ServicesModule} from './services/services.module';
     ServicesModule
   ],
   providers: [
-
   ],
   bootstrap: [AppComponent]
 })

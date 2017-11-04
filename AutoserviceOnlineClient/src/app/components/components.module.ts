@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {MainComponent} from "./main/main.component";
 import {OrdersComponent} from './orders/orders.component';
 import {NavComponent} from './nav/nav.component';
+import {RoutingModule} from '../modules/routing/routing.module';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,9 @@ import {NavComponent} from './nav/nav.component';
     MainComponent,
     OrdersComponent,
     NavComponent
+  ],
+  imports: [
+    // RoutingModule
   ]
 })
 export class ComponentsModule {

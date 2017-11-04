@@ -1,17 +1,12 @@
 import {NgModule} from '@angular/core';
 import {MainComponent} from "../components/main/main.component";
-import {OrdersService} from "../services/load-data-services/orders.service";
+import {OrdersComponent} from '../components/orders/orders.component';
 
 @NgModule({
-  imports: [
-    // OrdersService
-  ],
   declarations: [
     MainComponent,
+    OrdersComponent
   ],
-  // providers: [
-  //   OrdersService
-  // ]
 })
 export class ComponentsModule {
 }

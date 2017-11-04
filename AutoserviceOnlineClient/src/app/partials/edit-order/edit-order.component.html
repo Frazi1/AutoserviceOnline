@@ -1,0 +1,19 @@
+<div class="container" *ngIf="order">
+  <div class="header">
+    <span>Order: {{order.id}}</span>
+  </div>
+  <div class="body-container" *ngIf="order">
+    <!--<span>id: {{order.id}}</span>-->
+    <div class="edit-order-content-container">
+      <app-edit-customer [customer]="order.customer"></app-edit-customer>
+    </div>
+    <div class="edit-order-content-container">
+      <app-edit-car [car]="order.car"></app-edit-car>
+    </div>
+    <div class="edit-order-content-container">
+      <mat-checkbox [(ngModel)]="order.isCompleted">Order completed</mat-checkbox>
+    </div>
+  </div>
+  <button *ngIf="isEditing" mat-raised-button>Save</button>
+  <button *ngIf="!isEditing" mat-raised-button>Add</button>
+</div>

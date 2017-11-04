@@ -1,8 +1,15 @@
 <div class="orders-container">
   <div class="orders-list-container">
-123
+    <ul *ngIf="orders && orders.length > 0">
+      <li *ngFor="let item of orders">
+        <div (click)="selectOrder(item)">
+          <span>{{item.id}}</span>
+          <span *ngIf="item.car">{{item.car.model}}</span>
+        </div>
+      </li>
+    </ul>
   </div>
   <div class="selected-order-container">
-
+    <app-edit-order [order]="selectedOrder" [isEditing]="true"></app-edit-order>
   </div>
 </div>

@@ -22,8 +22,8 @@ export class NavComponent implements OnInit {
 
   public isActive(url): boolean {
     let currentUrl = this.router.url;
-    console.log(currentUrl);
-    console.log(url);
+    // console.log(currentUrl);
+    // console.log(url);
     return currentUrl === '/' + url;
   }
 

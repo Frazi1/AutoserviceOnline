@@ -4,5 +4,7 @@ export interface JsonOrder {
   Completed,
   CompletionDate,
   CustomerId,
-  CarId
+  CarId,
+  Car,
+  Customer
 }

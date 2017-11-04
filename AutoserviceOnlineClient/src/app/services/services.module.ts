@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import {DataServiceBase} from './data-service-base';
 import {JsonWorkmanConverter} from '../helpers/classes/converters/json-workman-converter';
 import {JsonTaskConverter} from '../helpers/classes/converters/json-task-converter';
@@ -12,8 +12,7 @@ import {OrdersService} from './load-data-services/orders.service';
 import {JsonCustomerConverter} from '../helpers/classes/converters/json-customer-converter';
 
 @NgModule({
-  imports: [
-  ],
+  imports: [],
   declarations: [],
   providers: [
     DataServiceBase,
@@ -29,4 +28,5 @@ import {JsonCustomerConverter} from '../helpers/classes/converters/json-customer
     JsonCustomerConverter
   ]
 })
-export class ServicesModule { }
+export class ServicesModule {
+}

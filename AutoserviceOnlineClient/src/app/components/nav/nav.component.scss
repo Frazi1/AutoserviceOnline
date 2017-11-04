@@ -1,0 +1,45 @@
+@import '~styles.scss';
+
+nav {
+  background-color: $navBackgroundColor;
+  font-family: "Century Gothic", serif;
+  color: white;
+  height: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+
+  :hover {
+    background-color: darkgreen;
+    cursor: pointer;
+  }
+  a {
+    cursor: pointer;
+  }
+}
+
+.nav-item, .nav-logo {
+  flex-basis: 50px;
+  margin: auto 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.nav-item-content {
+  margin: auto;
+}
+
+.nav-logo {
+  //flex-basis: 500px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  padding: 0 10px;
+  font-family: "Century Gothic", serif;
+  font-size: 18px;
+  margin-right: 200px;
+}
+
+.nav-logo-content {
+  margin: auto 0;
+}

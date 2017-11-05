@@ -50,8 +50,11 @@ namespace AutoserviceOnlineServer.Controllers
                 return BadRequest();
             }
 
-            _db.Entry(order).State = EntityState.Modified;
 
+            
+            _db.Entry(order).State = EntityState.Modified;
+            _db.Entry(order.Car).State = EntityState.Modified;
+            _db.Entry(order.Customer).State = EntityState.Modified;
             try
             {
                 _db.SaveChanges();

@@ -12,6 +12,10 @@
     </div>
     <div class="edit-order-content-container">
       <mat-checkbox [(ngModel)]="order.isCompleted">Order completed</mat-checkbox>
+      <div>
+        <input type="checkbox" [(ngModel)]="order.isCompleted">
+        <span>Order completed</span>
+      </div>
     </div>
   </div>
   <button *ngIf="isEditing" mat-raised-button>Save</button>

@@ -11,5 +11,6 @@
   </div>
   <div class="selected-order-container">
     <app-edit-order [order]="selectedOrder" [isEditing]="true"></app-edit-order>
+    <button *ngIf="selectedOrder" mat-raised-button (click)="saveOrder(selectedOrder)">Save</button>
   </div>
 </div>

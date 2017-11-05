@@ -124,7 +124,7 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\EntityMysqlSeed\DataAccess.csproj">
+    <ProjectReference Include="..\..\DataAccess\DataAccess.csproj">
       <Project>{1F2CB7BD-21A0-44A7-A44C-EB125DA606B3}</Project>
       <Name>DataAccess</Name>
     </ProjectReference>

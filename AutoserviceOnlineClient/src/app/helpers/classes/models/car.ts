@@ -6,12 +6,12 @@ export class Car {
   private _manufactureYear: number;
   private _customerId: number;
 
-  constructor(id: number = null,
-              manufacturer: string = null,
-              model: string = null,
-              vin: string = null,
-              manufactureYear: number = null,
-              customerId: number = null) {
+  constructor(id?: number,
+              manufacturer?: string,
+              model?: string,
+              vin?: string,
+              manufactureYear?: number,
+              customerId?: number) {
     this.id = id;
     this.manufacturer = manufacturer;
     this.model = model;

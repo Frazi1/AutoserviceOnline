@@ -5,10 +5,10 @@ export class Person {
   private _lastName: string;
 
 
-  constructor(id: number = null,
-              firstName: string = null,
-              middleName: string = null,
-              lastName: string = null) {
+  constructor(id?: number,
+              firstName?: string,
+              middleName?: string,
+              lastName?: string) {
     this.id = id;
     this.firstName = firstName;
     this.middleName = middleName;

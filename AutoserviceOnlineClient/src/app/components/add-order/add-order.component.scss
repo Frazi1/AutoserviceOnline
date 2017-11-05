@@ -1,0 +1,5 @@
+@import "~styles.scss";
+.add-order-container {
+  height: calc(100% - #{$navHeight} );
+  overflow: auto;
+}

@@ -1,3 +1,9 @@
-<div class="header">
-  <span>New order</span>
+<div class="container overflow-auto-container add-order-container">
+  <div class="header">
+    <span>New order</span>
+  </div>
+  <app-edit-order [isEditing]="false"
+                  [order]="order">
+  </app-edit-order>
+  <button mat-raised-button (click)="addOrder()">Adddsandsanmsdanm</button>
 </div>

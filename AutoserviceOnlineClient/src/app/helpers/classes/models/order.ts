@@ -11,11 +11,11 @@ export class Order {
   private _car: Car;
   private _customer: Customer;
 
-  constructor(id: number = null,
+  constructor(id?: number,
               isCompleted: boolean = false,
               // carId: number,
               // customerId: number,
-              completionDate: Date = null,
+              completionDate?: Date,
               creationDate: Date = new Date(Date.now()),
               car: Car = Car.empty,
               customer: Customer = Customer.empty) {

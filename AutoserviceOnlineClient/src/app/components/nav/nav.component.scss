@@ -23,18 +23,20 @@ nav {
 }
 
 .nav-item, .nav-logo {
-  flex-basis: 50px;
+  //flex-basis: 50px;
   margin: auto 0;
-  width: 100%;
+  //width: 100%;
   height: 100%;
   display: flex;
+  white-space: nowrap;
 }
 
 .new-order {
-  flex-basis: 100px;
+  //flex-basis: 100px;
 }
 
 .nav-item-content {
+  padding: 0 5px;
   margin: auto;
   display: flex;
   a {
@@ -46,7 +48,6 @@ nav {
 .nav-logo {
   //flex-basis: 500px;
   flex-shrink: 0;
-  white-space: nowrap;
   padding: 0 10px;
   font-family: "Century Gothic", serif;
   font-size: 18px;

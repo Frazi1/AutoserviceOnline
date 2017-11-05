@@ -5,13 +5,19 @@ export class Person {
   private _lastName: string;
 
 
-  constructor(id: number, firstName: string, middleName: string, lastName: string) {
+  constructor(id: number = null,
+              firstName: string = null,
+              middleName: string = null,
+              lastName: string = null) {
     this.id = id;
     this.firstName = firstName;
     this.middleName = middleName;
     this.lastName = lastName;
   }
 
+  protected static get empty() {
+    return new Person();
+  }
 
   get id(): number {
     return this._id;

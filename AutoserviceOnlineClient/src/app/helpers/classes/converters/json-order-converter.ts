@@ -12,8 +12,8 @@ export class JsonOrderConverter extends JsonModelConverterBase<Order, JsonOrder>
   public getModelFromJson(json: JsonOrder): Order {
     return new Order(json.Id,
       json.Completed,
-      json.CarId,
-      json.CustomerId,
+      // json.CarId,
+      // json.CustomerId,
       json.CompletionDate,
       json.Created,
       this.jsonCarConverter.getModelFromJson(json.Car),

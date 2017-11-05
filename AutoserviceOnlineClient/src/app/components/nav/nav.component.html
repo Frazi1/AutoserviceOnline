@@ -16,20 +16,12 @@
       </a>
     </div>
   </div>
-  <div class="nav-item">
+  <div (click)="navigate(STATES.STATE_ADD_NEW_ORDER)" class="nav-item new-order"
+       [class.selected]="isActive(STATES.STATE_ADD_NEW_ORDER)">
     <div class="nav-item-content">
       <a>
         <span>
-          Item1
-        </span>
-      </a>
-    </div>
-  </div>
-  <div class="nav-item">
-    <div class="nav-item-content">
-      <a>
-        <span>
-          Item1
+          New order
         </span>
       </a>
     </div>

@@ -5,22 +5,27 @@ import {NavComponent} from './nav/nav.component';
 import {CommonModule} from '@angular/common';
 import {PartialsModule} from '../partials/partials.module';
 import {MaterialModule} from '../modules/material/material.module';
+import { AddOrderComponent } from './add-order/add-order.component';
+import {RoutingModule} from '../modules/routing/routing.module';
 
 @NgModule({
   declarations: [
     MainComponent,
     OrdersComponent,
-    NavComponent
+    NavComponent,
+    AddOrderComponent
   ],
   exports: [
     MainComponent,
     OrdersComponent,
-    NavComponent
+    NavComponent,
+    AddOrderComponent
   ],
   imports: [
     CommonModule,
     PartialsModule,
-    MaterialModule
+    MaterialModule,
+    RoutingModule
   ]
 })
 export class ComponentsModule {

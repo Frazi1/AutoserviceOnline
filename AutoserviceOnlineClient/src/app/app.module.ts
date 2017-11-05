@@ -11,16 +11,16 @@ import {ServicesModule} from './services/services.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
-    RoutingModule,
     ComponentsModule,
     HttpModule,
-    ServicesModule
+    ServicesModule,
+    RoutingModule
   ],
   providers: [
   ],

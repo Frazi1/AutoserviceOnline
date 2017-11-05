@@ -9,7 +9,7 @@ nav {
   display: flex;
   justify-content: flex-start;
 
-   :hover {
+  :hover {
     background-color: $navSelectedColor;
     cursor: pointer;
   }
@@ -30,8 +30,17 @@ nav {
   display: flex;
 }
 
+.new-order {
+  flex-basis: 100px;
+}
+
 .nav-item-content {
   margin: auto;
+  display: flex;
+  a {
+    display: flex;
+    text-align: center;
+  }
 }
 
 .nav-logo {

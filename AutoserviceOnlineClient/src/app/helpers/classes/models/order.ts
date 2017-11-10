@@ -81,11 +81,11 @@ export class Order {
     this._customer = value;
   }
 
-  get creationDate(): Date {
+  public get creationDate(): Date {
     return this._creationDate;
   }
 
-  set creationDate(value: Date) {
+  public set creationDate(value: Date) {
     this._creationDate = value;
   }
 }

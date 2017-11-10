@@ -16,6 +16,10 @@
         <input type="checkbox" [(ngModel)]="order.isCompleted">
         <span>Order completed</span>
       </div>
+      <div *ngIf="isEditing
+">
+        <span>Created: {{order.creationDate | date:'dd/MM/yyyy - HH:mm'}}</span>
+      </div>
     </div>
   </div>
   <!--<button *ngIf="isEditing" mat-raised-button>Save</button>-->

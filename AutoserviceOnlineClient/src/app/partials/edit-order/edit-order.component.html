@@ -3,8 +3,19 @@
     <span>Order: {{order.id}}</span>
   </div>
   <div class="body-container" *ngIf="order">
-    <!--<span>id: {{order.id}}</span>-->
+
     <div class="edit-order-content-container">
+      <select [ngClass]="{'invisible' :
+                      !(!isEditing
+                      && existingCustomers
+                      && existingCustomers.length > 0)}"
+              class="customer-selector"
+              [(ngModel)]="order.customer">
+        <option [ngValue]="">New customer</option>
+        <option *ngFor="let item of existingCustomers" [ngValue]="item">{{item.id}}. {{item.lastName}}
+          {{item.firstName}}
+        </option>
+      </select>
       <app-edit-customer [customer]="order.customer"></app-edit-customer>
     </div>
     <div class="edit-order-content-container">

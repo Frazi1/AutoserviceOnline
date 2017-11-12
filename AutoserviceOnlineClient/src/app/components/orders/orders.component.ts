@@ -23,7 +23,11 @@ export class OrdersComponent implements OnInit {
     this.ordersService.getItems()
       .then(value => {
         this.orders = value;
-        this.selectedOrder = null;
+        if (this.orders
+          && this.selectedOrder
+          && !this.orders.find(currOrder => currOrder.id == this.selectedOrder.id)){
+          this.selectedOrder = null;
+        }
       });
   }
 

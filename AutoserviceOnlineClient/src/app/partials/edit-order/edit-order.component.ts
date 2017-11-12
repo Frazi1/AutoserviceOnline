@@ -1,7 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Order} from '../../helpers/classes/models/order';
 import {OrdersService} from "../../services/load-data-services/orders.service";
-import {STATES} from "../../modules/routing/states";
+import {CustomersService} from "../../services/load-data-services/customers.service";
+import {Customer} from "../../helpers/classes/models/customer";
 
 @Component({
   selector: 'app-edit-order',
@@ -10,14 +11,26 @@ import {STATES} from "../../modules/routing/states";
 })
 export class EditOrderComponent implements OnInit {
   private _isEditing: boolean;
+  private _newCustomer: boolean = false;
   private _order: Order;
+  private _existingCustomers: Customer[];
 
   @Output() orderDeleted: EventEmitter<Order> = new EventEmitter<Order>();
 
-  constructor(private ordersService: OrdersService) {
+  constructor(private ordersService: OrdersService,
+              private customersService: CustomersService) {
   }
 
   ngOnInit() {
+    this.customersService.getItems()
+      .then(value => this.existingCustomers = value);
+  }
+
+  public remove(id: number): void {
+    this.ordersService.deleteItem(id)
+      .then(value => {
+        this.orderDeleted.emit(null);
+      });
   }
 
   get isEditing(): boolean {
@@ -37,12 +50,21 @@ export class EditOrderComponent implements OnInit {
   set order(value: Order) {
     this._order = value;
   }
-
-  public remove(id: number): void {
-    this.ordersService.deleteItem(id)
-      .then(value => {
-        this.orderDeleted.emit(null);
-      });
+  public get newCustomer(): boolean {
+    return this._newCustomer;
   }
+
+  @Input()
+  public set newCustomer(value: boolean) {
+    this._newCustomer = value;
+  }
+  get existingCustomers() {
+    return this._existingCustomers;
+  }
+
+  set existingCustomers(value) {
+    this._existingCustomers = value;
+  }
+
 
 }

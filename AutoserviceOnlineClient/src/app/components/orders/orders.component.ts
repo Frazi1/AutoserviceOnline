@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {OrdersService} from '../../services/load-data-services/orders.service';
 import {Order} from '../../helpers/classes/models/order';
-import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-orders',
@@ -22,8 +21,10 @@ export class OrdersComponent implements OnInit {
 
   private loadOrders() {
     this.ordersService.getItems()
-      .then(value => this.orders = value)
-      .then(value => console.log(this.orders));
+      .then(value => {
+        this.orders = value;
+        this.selectedOrder = null;
+      });
   }
 
   public selectOrder(item: Order): void {

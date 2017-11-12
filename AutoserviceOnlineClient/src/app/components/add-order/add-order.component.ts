@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Order} from '../../helpers/classes/models/order';
 import {OrdersService} from '../../services/load-data-services/orders.service';
-import {Location} from '@angular/common';
+import {Router} from "@angular/router";
+import {STATES} from "../../modules/routing/states";
 
 @Component({
   selector: 'app-add-order',
@@ -12,16 +13,15 @@ export class AddOrderComponent implements OnInit {
   private _order: Order = Order.Empty;
 
   constructor(private ordersService: OrdersService,
-              private location: Location) {
+              private router: Router) {
   }
 
   ngOnInit() {
   }
 
   public addOrder(): void {
-    console.log(1);
     this.ordersService.addItem(this.order)
-      .then(value => this.location.back());
+      .then(value => this.router.navigate([STATES.STATE_ORDERS]));
   }
 
   get order(): Order {

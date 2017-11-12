@@ -1,7 +1,7 @@
 <div class="orders-container">
   <div class="orders-list-container">
     <ul *ngIf="orders && orders.length > 0">
-      <li *ngFor="let item of orders">
+      <li class="order-item" *ngFor="let item of orders">
         <div (click)="selectOrder(item)">
           <span>{{item.id}}</span>
           <span *ngIf="item.car">{{item.car.model}}</span>
@@ -10,7 +10,10 @@
     </ul>
   </div>
   <div class="selected-order-container">
-    <app-edit-order [order]="selectedOrder" [isEditing]="true"></app-edit-order>
+    <app-edit-order [order]="selectedOrder"
+                    [isEditing]="true" (orderDeleted)="loadOrders()">
+
+    </app-edit-order>
     <button *ngIf="selectedOrder" mat-raised-button (click)="saveOrder(selectedOrder)">Save</button>
   </div>
 </div>

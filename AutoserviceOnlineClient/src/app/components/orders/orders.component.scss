@@ -17,9 +17,15 @@
     padding: 0;
     margin: 0;
   }
+  border-right: 1px solid $separatorColor;
+
 }
 
 .selected-order-container {
   flex-grow: 9;
   overflow: auto;
+}
+
+.order-item {
+  cursor: pointer;
 }

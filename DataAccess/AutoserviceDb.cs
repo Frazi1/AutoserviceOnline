@@ -12,11 +12,13 @@ namespace DataAccess
         public AutoserviceDb()
             : base("name=AutoserviceDb")
         {
+            Database.SetInitializer(new CreateDatabaseIfNotExists<AutoserviceDb>());
         }
 
         public AutoserviceDb(string connectionString)
             : base(connectionString)
         {
+            Database.SetInitializer(new CreateDatabaseIfNotExists<AutoserviceDb>());
         }
 
         public virtual DbSet<Car> Car { get; set; }

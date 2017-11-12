@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using DataAccess;
@@ -15,7 +12,7 @@ namespace AutoserviceOnlineServer.Controllers
 {
     public class OrdersController : ApiController
     {
-        private AutoserviceDb _db = new AutoserviceDb();
+        private readonly AutoserviceDb _db = new AutoserviceDb();
 
         // GET: api/Orders
         public IEnumerable<Order> Getorder()

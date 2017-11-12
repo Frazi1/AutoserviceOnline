@@ -11,7 +11,7 @@
                       && existingCustomers.length > 0)}"
               class="customer-selector"
               [(ngModel)]="order.customer">
-        <option [ngValue]="">New customer</option>
+        <option [ngValue]="emptyCustomer">New customer</option>
         <option *ngFor="let item of existingCustomers" [ngValue]="item">{{item.id}}. {{item.lastName}}
           {{item.firstName}}
         </option>

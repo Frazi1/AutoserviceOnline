@@ -66,5 +66,9 @@ export class EditOrderComponent implements OnInit {
     this._existingCustomers = value;
   }
 
+  get emptyCustomer() {
+    return Customer.empty;
+  }
+
 
 }

@@ -48,7 +48,6 @@ namespace AutoserviceOnlineServer.Controllers
             }
 
 
-            
             _db.Entry(order).State = EntityState.Modified;
             _db.Entry(order.Car).State = EntityState.Modified;
             _db.Entry(order.Customer).State = EntityState.Modified;
@@ -79,8 +78,15 @@ namespace AutoserviceOnlineServer.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            if (order.Customer.Id != 0)
+            {
+                order.Customer = _db.Customer.FirstOrDefault(customer => customer.Id == order.Customer.Id);
+                order.Car.Customer = order.Customer;
+            }
+            //_db.Car.Add(order.Car);
+            //_db.Customer.Add(order.Customer);
             _db.Order.Add(order);
+
             _db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = order.Id }, order);
@@ -95,11 +101,40 @@ namespace AutoserviceOnlineServer.Controllers
             {
                 return NotFound();
             }
+            RemoveCarIfPossible(order);
+            RemoveCustomerIfPossible(order);
 
             _db.Order.Remove(order);
             _db.SaveChanges();
 
             return Ok(order);
+        }
+
+        private void RemoveCustomerIfPossible(Order order)
+        {
+            int otherOrdersCount = _db.Order
+                .Count(item => item.Id != order.Id && item.CustomerId == order.CustomerId);
+            if (otherOrdersCount == 0)
+            {
+                Customer customer = _db.Customer.Find(order.CustomerId);
+                //var customerCars = _db.Car.Where(car => car.CustomerId == customer.Id);
+                //if (customerCars.Any())
+                //{
+                //    _db.Car.RemoveRange(customerCars);
+                //}
+                if (customer != null)
+                    _db.Customer.Remove(customer);
+            }
+        }
+
+        private void RemoveCarIfPossible(Order order)
+        {
+            if (!_db.Order.Any(o => o.CarId == order.CarId && o.Id != order.Id))
+            {
+                Car car = _db.Car.Find(order.CarId);
+                if (car != null)
+                    _db.Car.Remove(car);
+            }
         }
 
         protected override void Dispose(bool disposing)

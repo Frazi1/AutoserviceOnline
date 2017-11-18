@@ -4,33 +4,44 @@
   </div>
   <div class="body-container" *ngIf="order">
 
-    <div class="edit-order-content-container">
-      <select [ngClass]="{'invisible' :
+    <mat-tab-group>
+      <mat-tab label="Customer">
+        <div class="edit-order-content-container">
+          <select [ngClass]="{'hidden' :
                       !(!isEditing
                       && existingCustomers
                       && existingCustomers.length > 0)}"
-              class="customer-selector"
-              [(ngModel)]="order.customer">
-        <option [ngValue]="emptyCustomer">New customer</option>
-        <option *ngFor="let item of existingCustomers" [ngValue]="item">{{item.id}}. {{item.lastName}}
-          {{item.firstName}}
-        </option>
-      </select>
-      <app-edit-customer [customer]="order.customer"></app-edit-customer>
-    </div>
-    <div class="edit-order-content-container">
-      <app-edit-car [car]="order.car"></app-edit-car>
-    </div>
-    <div class="edit-order-content-container">
-      <mat-checkbox [(ngModel)]="order.isCompleted">Order completed</mat-checkbox>
-      <div>
-        <input type="checkbox" [(ngModel)]="order.isCompleted">
-        <span>Order completed</span>
-      </div>
-      <div *ngIf="isEditing">
-        <span>Created: {{order.creationDate | date:'dd/MM/yyyy - HH:mm'}}</span>
-      </div>
-    </div>
+                  class="customer-selector"
+                  [(ngModel)]="order.customer">
+            <option [ngValue]="emptyCustomer">New customer</option>
+            <option *ngFor="let item of existingCustomers" [ngValue]="item">{{item.id}}. {{item.lastName}}
+              {{item.firstName}}
+            </option>
+          </select>
+          <app-edit-customer [customer]="order.customer"></app-edit-customer>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Car">
+        <div class="edit-order-content-container">
+          <app-edit-car [car]="order.car"></app-edit-car>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="??">
+        <div class="edit-order-content-container">
+          <mat-checkbox [(ngModel)]="order.isCompleted">Order completed</mat-checkbox>
+          <div>
+            <input type="checkbox" [(ngModel)]="order.isCompleted">
+            <span>Order completed</span>
+          </div>
+          <div *ngIf="isEditing">
+            <span>Created: {{order.creationDate | date:'dd/MM/yyyy - HH:mm'}}</span>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+
     <div *ngIf="isEditing" class="edit-order-content-container">
       <button mat-raised-button (click)="remove(order.id)">Delete</button>
     </div>

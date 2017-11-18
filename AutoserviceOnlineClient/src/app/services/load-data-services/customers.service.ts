@@ -10,7 +10,6 @@ import {JsonCustomerConverter} from '../../helpers/classes/converters/json-custo
 export class CustomersService extends DataServiceBase<Customer, JsonCustomer> {
 
   constructor(http: Http, converter: JsonCustomerConverter) {
-    super(http, converter);
-    this.endPointUrl = URL.CUSTOMERS_URL;
+    super(http, converter, URL.CUSTOMERS_URL);
   }
 }

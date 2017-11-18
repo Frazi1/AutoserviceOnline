@@ -16,12 +16,12 @@ export class MainComponent implements OnInit {
 
   public getOrders(): void {
     this.ordersService.getItems()
-      .then(value => console.log(value));
+      .subscribe(value => console.log(value));
   }
 
   public getOrder(id: number): void {
     this.ordersService.getItem(id)
-      .then(value => console.log(value));
+      .subscribe(value => console.log(value));
   }
 
   public addOrder(): void {
@@ -31,7 +31,7 @@ export class MainComponent implements OnInit {
 
   public removeOrder(): void {
     this.ordersService.deleteItem(1)
-      .then(value => console.log(value));
+      .subscribe(value => console.log(value));
   }
   ngOnInit() {
   }

@@ -23,13 +23,14 @@ export class EditOrderComponent implements OnInit {
 
   ngOnInit() {
     this.customersService.getItems()
-      .then(value => this.existingCustomers = value);
+      .subscribe(value => this.existingCustomers = value);
   }
 
   public remove(id: number): void {
     this.ordersService.deleteItem(id)
-      .then(value => {
+      .subscribe(value => {
         this.orderDeleted.emit(null);
+        console.log(value)
       });
   }
 

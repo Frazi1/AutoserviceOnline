@@ -10,7 +10,6 @@ import {JsonOrder} from '../../helpers/interfaces/json-model/json-order';
 export class OrdersService extends DataServiceBase<Order, JsonOrder>{
 
   constructor(http: Http, converter: JsonOrderConverter) {
-    super(http, converter);
-    this.endPointUrl = URL.ORDERS_URL;
+    super(http, converter, URL.ORDERS_URL);
   }
 }

@@ -21,7 +21,7 @@ export class AddOrderComponent implements OnInit {
 
   public addOrder(): void {
     this.ordersService.addItem(this.order)
-      .then(value => this.router.navigate([STATES.STATE_ORDERS]));
+      .subscribe(value => this.router.navigate([STATES.STATE_ORDERS]));
   }
 
   get order(): Order {

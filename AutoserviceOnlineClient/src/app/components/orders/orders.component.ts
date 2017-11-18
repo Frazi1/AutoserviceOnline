@@ -21,7 +21,7 @@ export class OrdersComponent implements OnInit {
 
   private loadOrders() {
     this.ordersService.getItems()
-      .then(value => {
+      .subscribe(value => {
         this.orders = value;
         if (this.orders
           && this.selectedOrder
@@ -37,6 +37,9 @@ export class OrdersComponent implements OnInit {
 
   public saveOrder(item: Order): void {
     this.ordersService.editItem(item.id, item)
-      .then(value => this.loadOrders())
+      .subscribe(value => {
+        this.loadOrders();
+        console.log(value);
+      });
   }
 }

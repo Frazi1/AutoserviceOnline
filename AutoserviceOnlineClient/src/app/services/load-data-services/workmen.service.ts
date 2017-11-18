@@ -10,7 +10,6 @@ import {JsonWorkmanConverter} from '../../helpers/classes/converters/json-workma
 export class WorkmenService  extends DataServiceBase<Workman, JsonWorkman>{
 
   constructor(http: Http, converter: JsonWorkmanConverter) {
-    super(http, converter);
-    this.endPointUrl = URL.WORKMEN_URL;
+    super(http, converter, URL.WORKMEN_URL);
   }
 }

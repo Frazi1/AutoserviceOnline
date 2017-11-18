@@ -10,4 +10,3 @@ export const URL = {
   WORKMEN_URL: SERVER_API_URL + 'workmen/',
   CARS_URL: SERVER_API_URL + 'cars/'
 };
-

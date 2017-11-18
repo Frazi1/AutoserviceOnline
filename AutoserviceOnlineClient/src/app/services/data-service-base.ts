@@ -1,48 +1,36 @@
 import {Http} from '@angular/http';
 import {JsonModelConverterBase} from '../helpers/interfaces/json-model-converter-base';
 import {Injectable} from '@angular/core';
+import {Observable} from "rxjs/Observable";
+import "rxjs/add/operator/map";
 
 @Injectable()
 export class DataServiceBase<TModel, TJsonModel> {
-  private _endPointUrl: string;
-
   constructor(protected http: Http,
-              protected converter: JsonModelConverterBase<TModel, TJsonModel>) {
+              protected converter: JsonModelConverterBase<TModel, TJsonModel>,
+              protected endPointUrl: string) {
   }
 
-  public getItems(): Promise<TModel[]> {
+  public getItems(): Observable<TModel[]> {
     return this.http.get(this.endPointUrl)
-      .toPromise()
-      .then(value => this.converter.getModelArrayFromJson(value.json() as TJsonModel[]))
-      .catch(this.handleError);
+      .map(value => this.converter.getModelArrayFromJson(value.json() as TJsonModel[]))
   }
 
-  public getItem(id: number): Promise<TModel> {
+  public getItem(id: number): Observable<TModel> {
     return this.http.get(this.endPointUrl + id)
-      .toPromise()
-      .then(value => this.converter.getModelFromJson(value.json() as TJsonModel))
-      .catch(this.handleError);
+      .map(response => this.converter.getModelFromJson(response.json()));
   }
 
-  public addItem(model: TModel): Promise<TModel> {
-    return this.http.post(this.endPointUrl, this.converter.getJsonFromModel(model))
-      .toPromise()
-      .then(value => console.log(value))
-      .catch(this.handleError);
+  public addItem(model: TModel): Observable<any> {
+    return this.http.post(this.endPointUrl, this.converter.getJsonFromModel(model));
   }
 
-  public deleteItem(id: number): Promise<TModel> {
-    return this.http.delete(this.endPointUrl + id)
-      .toPromise()
-      .then(value => console.log(value))
-      .catch(this.handleError);
+  public deleteItem(id: number): Observable<any> {
+    return this.http.delete(this.endPointUrl + id);
   }
 
-  public editItem(id: number, model: TModel): Promise<TModel> {
-    return this.http.put(this.endPointUrl + id, this.converter.getJsonFromModel(model))
-      .toPromise()
-      .then(value => console.log(value))
-      .catch(this.handleError);
+  public editItem(id: number, model: TModel): Observable<any> {
+    return this.http.put(this.endPointUrl + id, this.converter.getJsonFromModel(model));
   }
 
   protected handleError(error: any): Promise<any> {
@@ -50,11 +38,4 @@ export class DataServiceBase<TModel, TJsonModel> {
     return Promise.reject(error.message | error);
   }
 
-  get endPointUrl(): string {
-    return this._endPointUrl;
-  }
-
-  set endPointUrl(value: string) {
-    this._endPointUrl = value;
-  }
 }

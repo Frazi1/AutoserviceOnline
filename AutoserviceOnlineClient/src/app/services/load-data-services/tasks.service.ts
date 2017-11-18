@@ -9,7 +9,6 @@ import {JsonTaskConverter} from '../../helpers/classes/converters/json-task-conv
 @Injectable()
 export class TasksService extends DataServiceBase<Task, JsonTask> {
   constructor(http: Http, converter: JsonTaskConverter) {
-    super(http, converter);
-    this.endPointUrl = URL.TASKS_URL;
+    super(http, converter, URL.TASKS_URL);
   }
 }

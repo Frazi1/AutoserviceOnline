@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-import {MainComponent} from "./main/main.component";
 import {OrdersComponent} from './orders/orders.component';
 import {NavComponent} from './nav/nav.component';
 import {CommonModule} from '@angular/common';
@@ -10,13 +9,11 @@ import {RoutingModule} from '../modules/routing/routing.module';
 
 @NgModule({
   declarations: [
-    MainComponent,
     OrdersComponent,
     NavComponent,
     AddOrderComponent
   ],
   exports: [
-    MainComponent,
     OrdersComponent,
     NavComponent,
     AddOrderComponent

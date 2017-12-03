@@ -1,21 +1,18 @@
 using DataAccess.Model;
+using System.Data.Entity;
 
 namespace DataAccess
 {
-    using System;
-    using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
 
-    public partial class AutoserviceDb : DbContext
+    public class AutoserviceDb : DbContext
     {
-        private IDatabaseInitializer<AutoserviceDb> DatabaseInitializer 
+        private static IDatabaseInitializer<AutoserviceDb> DatabaseInitializer 
             => new DropCreateDatabaseIfModelChanges<AutoserviceDb>();
 
         public AutoserviceDb()
-            : base("name=AutoserviceDb")
+            //: base("name=AutoserviceDb")
+            :this("name=AutoserviceDb")
         {
-            Database.SetInitializer(DatabaseInitializer);
         }
 
         public AutoserviceDb(string connectionString)

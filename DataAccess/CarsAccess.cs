@@ -13,6 +13,11 @@ namespace DataAccess
             return _db.Car.Where(car => car.CustomerId == customerId);
         }
 
+        public Car GetCar(int id)
+        {
+            return _db.Car.Find(id);
+        }
+
         public void Dispose()
         {
             _db?.Dispose();

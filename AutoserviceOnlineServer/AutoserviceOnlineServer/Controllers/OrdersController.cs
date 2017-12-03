@@ -78,11 +78,21 @@ namespace AutoserviceOnlineServer.Controllers
             {
                 return BadRequest(ModelState);
             }
+            if (order.Car.Id != 0)
+            {
+                using (var carAccess = new CarsAccess())
+                {
+                    order.Car = carAccess.GetCar(order.Car.Id);
+                    order.CarId = order.Car.Id;
+                }
+            }
             if (order.Customer.Id != 0)
             {
-                order.Customer = _db.Customer.FirstOrDefault(customer => customer.Id == order.Customer.Id);
-                order.Car.Customer = order.Customer;
+                order.Customer = _db.Customer.First(customer => customer.Id == order.Customer.Id);
+                order.CustomerId = order.Customer.Id;
+                //order.Car.Customer = order.Customer;
             }
+            
             //_db.Car.Add(order.Car);
             //_db.Customer.Add(order.Customer);
             _db.Order.Add(order);

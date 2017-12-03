@@ -74,35 +74,35 @@ namespace AutoserviceOnlineServer.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Cars
-        [ResponseType(typeof(Car))]
-        public IHttpActionResult Postcar(Car car)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// POST: api/Cars
+        //[ResponseType(typeof(Car))]
+        //public IHttpActionResult Postcar(Car car)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            _db.Car.Add(car);
+        //    _db.Car.Add(car);
 
-            try
-            {
-                _db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                if (CarExists(car.Id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        _db.SaveChanges();
+        //    }
+        //    catch (DbUpdateException)
+        //    {
+        //        if (CarExists(car.Id))
+        //        {
+        //            return Conflict();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return CreatedAtRoute("DefaultApi", new {id = car.Id}, car);
-        }
+        //    return CreatedAtRoute("DefaultApi", new {id = car.Id}, car);
+        //}
 
         // DELETE: api/Cars/5
         [ResponseType(typeof(Car))]

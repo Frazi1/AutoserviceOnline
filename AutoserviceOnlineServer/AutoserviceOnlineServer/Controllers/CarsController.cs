@@ -13,19 +13,20 @@ using DataAccess.Model;
 
 namespace AutoserviceOnlineServer.Controllers
 {
-    
+
     public class CarsController : ApiController
     {
-        private AutoserviceDb _db = new AutoserviceDb();
+        private readonly AutoserviceDb _db = new AutoserviceDb();
 
         // GET: api/Cars
+        [Route("api/cars")]
         public IQueryable<Car> Getcar()
         {
-            _db.Database.CreateIfNotExists();
             return _db.Car;
         }
 
         // GET: api/Cars/5
+        [Route("api/cars/{id}")]
         [ResponseType(typeof(Car))]
         public IHttpActionResult Getcar(int id)
         {
@@ -100,7 +101,7 @@ namespace AutoserviceOnlineServer.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = car.Id }, car);
+            return CreatedAtRoute("DefaultApi", new {id = car.Id}, car);
         }
 
         // DELETE: api/Cars/5
@@ -117,6 +118,14 @@ namespace AutoserviceOnlineServer.Controllers
             _db.SaveChanges();
 
             return Ok(car);
+        }
+
+        [HttpGet]
+        [Route("api/cars/GetCustomerCars/")]
+        public IList<Car> GetCustomerCars([FromUri] int customerId=0)
+        {
+            using (var carsAccess = new CarsAccess())
+                return carsAccess.GetCustomerCars(customerId).ToList();
         }
 
         protected override void Dispose(bool disposing)

@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoserviceDb.cs" />
+    <Compile Include="CarsAccess.cs" />
     <Compile Include="DataAccess.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Car.cs" />

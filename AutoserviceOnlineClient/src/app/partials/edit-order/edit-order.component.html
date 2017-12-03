@@ -3,26 +3,29 @@
     <span>Order: {{order.id}}</span>
   </div>
   <div class="edit-order-body-container" *ngIf="order">
-
     <mat-tab-group>
       <mat-tab label="Customer">
         <div class="edit-order-content-container">
           <select [ngClass]="{'hidden' :
-                      !(!isEditing
-                      && existingCustomers
-                      && existingCustomers.length > 0)}"
-                  class="customer-selector"
-                  [(ngModel)]="order.customer">
+                      isEditing||!existingCustomers||existingCustomers.length<=0}"
+                  class="customer-selector" [(ngModel)]="orderCustomer">
             <option [ngValue]="emptyCustomer">New customer</option>
-            <option *ngFor="let item of existingCustomers" [ngValue]="item">{{item.id}}. {{item.lastName}}
-              {{item.firstName}}
+            <option *ngFor="let item of existingCustomers" [ngValue]="item">
+              {{item.id}}. {{item.lastName}} {{item.firstName}}
             </option>
+
           </select>
           <app-edit-customer [customer]="order.customer"></app-edit-customer>
         </div>
       </mat-tab>
 
       <mat-tab label="Car">
+        <select class="customer-selector" [ngClass]="{'hidden' : isEditing}" [(ngModel)]="orderCar">
+          <option [ngValue]="emptyCar">New car</option>
+          <option *ngFor="let item of customerCars" [ngValue]="item">
+            {{item.id + '. ' +item.manufacturer + ' ' + item.model }}
+          </option>
+        </select>
         <div class="edit-order-content-container">
           <app-edit-car [car]="order.car"></app-edit-car>
         </div>

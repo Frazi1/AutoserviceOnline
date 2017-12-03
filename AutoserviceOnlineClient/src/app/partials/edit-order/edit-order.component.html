@@ -2,7 +2,7 @@
   <div class="header">
     <span>Order: {{order.id}}</span>
   </div>
-  <div class="body-container" *ngIf="order">
+  <div class="edit-order-body-container" *ngIf="order">
 
     <mat-tab-group>
       <mat-tab label="Customer">
@@ -43,9 +43,11 @@
     </mat-tab-group>
 
     <div *ngIf="isEditing" class="edit-order-content-container">
+      <button mat-raised-button (click)="saveOrder(order)">Save</button>
       <button mat-raised-button (click)="remove(order.id)">Delete</button>
     </div>
+    <div *ngIf="!isEditing" class="edit-order-content-container">
+      <button mat-raised-button (click)="addOrder(order)">Add</button>
+    </div>
   </div>
-  <!--<button *ngIf="isEditing" mat-raised-button>Save</button>-->
-  <!--<button *ngIf="!isEditing" mat-raised-button>Add</button>-->
 </div>

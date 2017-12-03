@@ -10,6 +10,7 @@ import {TasksService} from './load-data-services/tasks.service';
 import {CustomersService} from './load-data-services/customers.service';
 import {OrdersService} from './load-data-services/orders.service';
 import {JsonCustomerConverter} from '../helpers/classes/converters/json-customer-converter';
+import {ErrorService} from "./error.service";
 
 @NgModule({
   imports: [],
@@ -25,7 +26,8 @@ import {JsonCustomerConverter} from '../helpers/classes/converters/json-customer
     JsonOrderConverter,
     JsonTaskConverter,
     JsonWorkmanConverter,
-    JsonCustomerConverter
+    JsonCustomerConverter,
+    ErrorService
   ]
 })
 export class ServicesModule {

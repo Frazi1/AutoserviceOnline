@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Order} from '../../helpers/classes/models/order';
-import {OrdersService} from '../../services/load-data-services/orders.service';
 import {Router} from "@angular/router";
 import {STATES} from "../../modules/routing/states";
 
@@ -12,16 +11,10 @@ import {STATES} from "../../modules/routing/states";
 export class AddOrderComponent implements OnInit {
   private _order: Order = Order.Empty;
 
-  constructor(private ordersService: OrdersService,
-              private router: Router) {
+  constructor(protected router: Router) {
   }
 
   ngOnInit() {
-  }
-
-  public addOrder(): void {
-    this.ordersService.addItem(this.order)
-      .subscribe(value => this.router.navigate([STATES.STATE_ORDERS]));
   }
 
   get order(): Order {
@@ -30,5 +23,9 @@ export class AddOrderComponent implements OnInit {
 
   @Input() set order(value: Order) {
     this._order = value;
+  }
+
+  goToMainPage() {
+    this.router.navigate([STATES.STATE_ORDERS])
   }
 }

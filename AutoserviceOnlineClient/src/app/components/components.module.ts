@@ -6,6 +6,7 @@ import {PartialsModule} from '../partials/partials.module';
 import {MaterialModule} from '../modules/material/material.module';
 import { AddOrderComponent } from './add-order/add-order.component';
 import {RoutingModule} from '../modules/routing/routing.module';
+import {ServicesModule} from "../services/services.module";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {RoutingModule} from '../modules/routing/routing.module';
     CommonModule,
     PartialsModule,
     MaterialModule,
-    RoutingModule
+    RoutingModule,
+    ServicesModule
   ]
 })
 export class ComponentsModule {

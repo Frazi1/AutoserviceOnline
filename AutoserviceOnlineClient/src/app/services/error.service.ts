@@ -5,6 +5,8 @@ export class ErrorService {
 
   constructor() { }
 
-
+  public handleError(error: any) : void {
+    console.log(error);
+  }
 
 }

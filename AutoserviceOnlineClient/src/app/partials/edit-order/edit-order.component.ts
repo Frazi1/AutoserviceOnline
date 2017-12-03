@@ -3,6 +3,8 @@ import {Order} from '../../helpers/classes/models/order';
 import {OrdersService} from "../../services/load-data-services/orders.service";
 import {CustomersService} from "../../services/load-data-services/customers.service";
 import {Customer} from "../../helpers/classes/models/customer";
+import {ErrorService} from "../../services/error.service";
+import {STATES} from "../../modules/routing/states";
 
 @Component({
   selector: 'app-edit-order',
@@ -15,10 +17,11 @@ export class EditOrderComponent implements OnInit {
   private _order: Order;
   private _existingCustomers: Customer[];
 
-  @Output() orderDeleted: EventEmitter<Order> = new EventEmitter<Order>();
+  @Output() orderChanged: EventEmitter<Order> = new EventEmitter<Order>();
 
   constructor(private ordersService: OrdersService,
-              private customersService: CustomersService) {
+              private customersService: CustomersService,
+              private errorService: ErrorService) {
   }
 
   ngOnInit() {
@@ -28,12 +31,26 @@ export class EditOrderComponent implements OnInit {
 
   public remove(id: number): void {
     this.ordersService.deleteItem(id)
-      .subscribe(value => {
-        this.orderDeleted.emit(null);
-        console.log(value)
-      });
+      .subscribe(value => this.orderChanged.emit(null),
+        err => this.errorService.handleError(err));
   }
 
+  public saveOrder(item: Order): void {
+    this.ordersService.editItem(item.id, item)
+      .subscribe(value => {
+          this.orderChanged.emit(value)
+        },
+        err => this.errorService.handleError(err));
+  }
+
+  public addOrder(order: Order): void {
+    this.ordersService.addItem(order)
+      .subscribe(value => this.orderChanged.emit(value),
+        err => this.errorService.handleError(err));
+    // .subscribe(value => this.router.navigate([STATES.STATE_ORDERS]));
+  }
+
+  //#region Properties
   get isEditing(): boolean {
     return this._isEditing;
   }
@@ -51,6 +68,7 @@ export class EditOrderComponent implements OnInit {
   set order(value: Order) {
     this._order = value;
   }
+
   public get newCustomer(): boolean {
     return this._newCustomer;
   }
@@ -59,6 +77,7 @@ export class EditOrderComponent implements OnInit {
   public set newCustomer(value: boolean) {
     this._newCustomer = value;
   }
+
   get existingCustomers() {
     return this._existingCustomers;
   }
@@ -71,5 +90,6 @@ export class EditOrderComponent implements OnInit {
     return Customer.empty;
   }
 
+//#endregion
 
 }

@@ -2,14 +2,13 @@
   padding: 5px;
 }
 
-.body-container {
+.edit-order-body-container {
   margin-top: 5px;
-  display: flex;
+  flex-direction: column;
+  display: inline-block;
 }
 
 .edit-order-content-container {
-  //margin-right: 5px;
-
   margin: 20px;
 }
 

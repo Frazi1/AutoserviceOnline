@@ -15,12 +15,16 @@ namespace AutoserviceOnlineServer.Controllers
         private readonly AutoserviceDb _db = new AutoserviceDb();
 
         // GET: api/Orders
+        [HttpGet]
+        [Route("api/Orders")]
         public IEnumerable<Order> Getorder()
         {
             return _db.Order.ToList();
         }
 
         // GET: api/Orders/5
+        [HttpGet]
+        [Route("api/Orders/{id}")]
         [ResponseType(typeof(Order))]
         public IHttpActionResult Getorder(int id)
         {
@@ -34,6 +38,8 @@ namespace AutoserviceOnlineServer.Controllers
         }
 
         // PUT: api/Orders/5
+        [HttpPut]
+        [Route("api/Orders/{id}")]
         [ResponseType(typeof(void))]
         public IHttpActionResult Putorder(int id, Order order)
         {
@@ -70,39 +76,21 @@ namespace AutoserviceOnlineServer.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Orders
-        [ResponseType(typeof(Order))]
-        public IHttpActionResult Postorder(Order order)
+        [HttpPost]
+        [Route("api/Orders/")]
+        [ResponseType(typeof(void))]
+        public IHttpActionResult AddOrder(Order order)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
-            if (order.Car.Id != 0)
-            {
-                using (var carAccess = new CarsAccess())
-                {
-                    order.Car = carAccess.GetCar(order.Car.Id);
-                    order.CarId = order.Car.Id;
-                }
-            }
-            if (order.Customer.Id != 0)
-            {
-                order.Customer = _db.Customer.First(customer => customer.Id == order.Customer.Id);
-                order.CustomerId = order.Customer.Id;
-                //order.Car.Customer = order.Customer;
-            }
-            
-            //_db.Car.Add(order.Car);
-            //_db.Customer.Add(order.Customer);
-            _db.Order.Add(order);
-
-            _db.SaveChanges();
-
+            using (var ordersAccess = new OrdersAccess())
+                ordersAccess.AddOrder(order);
             return CreatedAtRoute("DefaultApi", new { id = order.Id }, order);
         }
 
         // DELETE: api/Orders/5
+        [HttpDelete]
+        [Route("api/Orders/{id}")]
         [ResponseType(typeof(Order))]
         public IHttpActionResult Deleteorder(int id)
         {

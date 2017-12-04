@@ -18,6 +18,11 @@ namespace DataAccess
             return _db.Car.Find(id);
         }
 
+        public void AddCar(Car car)
+        {
+            
+        }
+
         public void Dispose()
         {
             _db?.Dispose();

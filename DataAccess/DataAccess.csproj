@@ -73,6 +73,7 @@
     <Compile Include="Model\Car.cs" />
     <Compile Include="Model\Customer.cs" />
     <Compile Include="Model\Order.cs" />
+    <Compile Include="OrdersAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\Task.cs" />
     <Compile Include="Model\Workman.cs" />

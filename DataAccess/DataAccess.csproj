@@ -66,14 +66,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessClasses\AccessBase.cs" />
+    <Compile Include="AccessClasses\TasksAccess.cs" />
     <Compile Include="AutoserviceDb.cs" />
-    <Compile Include="CarsAccess.cs" />
-    <Compile Include="DataAccess.cs" />
+    <Compile Include="AccessClasses\CarsAccess.cs" />
+    <Compile Include="AccessClasses\DataAccess.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Car.cs" />
     <Compile Include="Model\Customer.cs" />
     <Compile Include="Model\Order.cs" />
-    <Compile Include="OrdersAccess.cs" />
+    <Compile Include="AccessClasses\OrdersAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\Task.cs" />
     <Compile Include="Model\Workman.cs" />

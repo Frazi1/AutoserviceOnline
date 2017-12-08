@@ -26,5 +26,10 @@
       </a>
     </div>
   </div>
+  <div (click)="navigate(STATES.STATE_TASKS)" class="nav-item" [class.selected]="isActive(STATES.STATE_TASKS)">
+    <div class="nav-item-content">
+      <a><span>Tasks</span></a>
+    </div>
+  </div>
 </nav>
 

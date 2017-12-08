@@ -34,4 +34,8 @@ export class Task {
   set price(value: number) {
     this._price = value;
   }
+
+  static get empty(): Task {
+    return new Task(null, "", null);
+  }
 }

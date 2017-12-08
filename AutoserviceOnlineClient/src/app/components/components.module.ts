@@ -7,24 +7,29 @@ import {MaterialModule} from '../modules/material/material.module';
 import { AddOrderComponent } from './add-order/add-order.component';
 import {RoutingModule} from '../modules/routing/routing.module';
 import {ServicesModule} from "../services/services.module";
+import { TasksComponent } from './tasks/tasks.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
     OrdersComponent,
     NavComponent,
-    AddOrderComponent
+    AddOrderComponent,
+    TasksComponent
   ],
   exports: [
     OrdersComponent,
     NavComponent,
-    AddOrderComponent
+    AddOrderComponent,
+    TasksComponent
   ],
   imports: [
     CommonModule,
     PartialsModule,
     MaterialModule,
     RoutingModule,
-    ServicesModule
+    ServicesModule,
+    FormsModule
   ]
 })
 export class ComponentsModule {

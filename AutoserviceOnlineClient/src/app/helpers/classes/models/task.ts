@@ -3,13 +3,12 @@ export class Task {
   private _name: string;
   private _price: number;
 
-  constructor(id: number, name: string, price: number) {
+  constructor(id?: number, name?: string, price?: number) {
     this.id = id;
     this.name = name;
     this.price = price;
     this.id = id;
   }
-
 
   get id(): number {
     return this._id;
@@ -36,6 +35,6 @@ export class Task {
   }
 
   static get empty(): Task {
-    return new Task(null, "", null);
+    return new Task();
   }
 }

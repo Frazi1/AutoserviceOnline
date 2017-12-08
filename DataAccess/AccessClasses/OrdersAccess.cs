@@ -7,7 +7,7 @@ namespace DataAccess
     {
         private readonly AutoserviceDb _db = new AutoserviceDb();
         
-        public void AddOrder(Order order)
+        public Order AddOrder(Order order)
         {
             var resultOrder = new Order
             {
@@ -22,9 +22,16 @@ namespace DataAccess
             }
             else
             {
-                resultOrder.Car = order.Car;
-                resultOrder.Car.Customer = resultOrder.Customer;
-                order.Customer.Car.Add(resultOrder.Car);
+                var car = order.Car;
+                var customer = resultOrder.Customer;
+
+                resultOrder.Car = car;
+                
+                car.Customer = customer;
+                car.Order.Add(resultOrder);
+                
+                customer.Car.Add(resultOrder.Car);
+                customer.Order.Add(resultOrder);
             }
 
             //Todo: tasks and workmans
@@ -32,9 +39,9 @@ namespace DataAccess
             _db.Order.Add(resultOrder);
             //_db.Car.Add(resultOrder.Car);
             //_db.Customer.Add(resultOrder.Customer);
-            
-            _db.SaveChanges();
 
+            _db.SaveChanges();
+            return resultOrder;
         }
 
         public void Dispose()

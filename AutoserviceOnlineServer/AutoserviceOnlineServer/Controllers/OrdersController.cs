@@ -84,8 +84,10 @@ namespace AutoserviceOnlineServer.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             using (var ordersAccess = new OrdersAccess())
-                ordersAccess.AddOrder(order);
-            return CreatedAtRoute("DefaultApi", new { id = order.Id }, order);
+            {
+                var result = ordersAccess.AddOrder(order);
+                return Created("DefaultApi", result);
+            }
         }
 
         // DELETE: api/Orders/5

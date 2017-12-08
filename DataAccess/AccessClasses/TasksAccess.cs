@@ -15,7 +15,7 @@ namespace DataAccess
 
         public IEnumerable<Task> GetTasks()
         {
-            return Db.Task;
+            return Db.Task.ToList();
         }
 
         public void AddTask(Task task)

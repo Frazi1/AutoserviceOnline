@@ -2,11 +2,6 @@
 
 .orders-list-container {
   @include double-layout-container-left($ordersListWidth);
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
 }
 
 .selected-order-container {

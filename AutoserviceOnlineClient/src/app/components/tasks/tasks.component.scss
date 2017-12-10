@@ -1,10 +1,14 @@
 @import "~styles.scss";
+
+.task-list-container {
+  @include double-layout-container-left($ordersListWidth);
+}
+
 .new-task-container {
-  display: flex;
-  flex-direction: row;
   mat-form-field {
     margin: 0 5px;
   }
+  @include double-layout-container-right();
 }
 
 .task-buttons {

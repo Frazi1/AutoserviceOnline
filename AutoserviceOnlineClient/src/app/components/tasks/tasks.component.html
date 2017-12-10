@@ -1,4 +1,15 @@
-<div class="container">
+<div class="content-container">
+  <div class="task-list-container">
+    <ul class="no-styles-list">
+      <li *ngFor="let item of tasksList">
+        <div (click)="selectTask(item)">
+          <span>{{item.id + ". "}}</span>
+          <span>{{item.name + " - "}}</span>
+          <span>{{item.price}}</span>
+        </div>
+      </li>
+    </ul>
+  </div>
   <div class="new-task-container">
     <mat-form-field>
       <input matInput placeholder="Task name" [(ngModel)]="currentTask.name">
@@ -13,9 +24,4 @@
       <button *ngIf="currentTask.id" mat-raised-button>Save</button>
     </div>
   </div>
-  <div class="task-list-container">
-
-  </div>
-
-
 </div>

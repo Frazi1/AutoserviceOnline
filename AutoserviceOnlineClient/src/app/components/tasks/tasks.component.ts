@@ -34,6 +34,12 @@ export class TasksComponent implements OnInit {
     }
   }
 
+  protected selectTask(task: Task): void {
+    this.tasksService.getItem(task.id)
+      .subscribe(data => this.currentTask = data,
+        err => this.errorService.handleError(err));
+  }
+
   //#region Properties
   get currentTask(): Task {
     return this._currentTask;

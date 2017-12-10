@@ -1,6 +1,6 @@
 <div class="content-container">
   <div class="orders-list-container">
-    <ul *ngIf="orders && orders.length > 0">
+    <ul class="no-styles-list" *ngIf="orders && orders.length > 0">
       <li class="order-item" *ngFor="let item of orders">
         <div (click)="selectOrder(item)">
           <span>{{item.id}}</span>

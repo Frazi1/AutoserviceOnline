@@ -70,6 +70,12 @@ body {
   @extend .overflow-hidden;
 }
 
+.no-styles-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
 @mixin flex($grow, $shrink, $basis){
   flex-basis: $basis;
   flex-grow: $grow;

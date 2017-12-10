@@ -26,18 +26,14 @@ export class TasksComponent implements OnInit {
         err => this.errorService.handleError(err));
   }
 
-  protected addTask(task: Task): void {
-    if (task && task.name && task.price) {
-      this.tasksService.addItem(task)
-        .subscribe(data => this.loadTasks(),
-          err => this.errorService.handleError(err));
-    }
-  }
-
   protected selectTask(task: Task): void {
     this.tasksService.getItem(task.id)
       .subscribe(data => this.currentTask = data,
         err => this.errorService.handleError(err));
+  }
+
+  protected openAddDialog(): void {
+
   }
 
   //#region Properties

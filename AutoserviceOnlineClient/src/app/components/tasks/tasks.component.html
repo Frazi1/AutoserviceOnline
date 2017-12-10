@@ -1,5 +1,6 @@
 <div class="content-container">
   <div class="task-list-container">
+    <button mat-raised-button (click)="openAddDialog()">Add new</button>
     <ul class="no-styles-list">
       <li *ngFor="let item of tasksList">
         <div (click)="selectTask(item)">
@@ -11,17 +12,6 @@
     </ul>
   </div>
   <div class="new-task-container">
-    <mat-form-field>
-      <input matInput placeholder="Task name" [(ngModel)]="currentTask.name">
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput placeholder="Task price" [(ngModel)]="currentTask.price">
-    </mat-form-field>
-
-    <div class="task-buttons">
-      <button *ngIf="!currentTask.id" mat-raised-button (click)="addTask(currentTask)">Add</button>
-      <button *ngIf="currentTask.id" mat-raised-button>Save</button>
-    </div>
+    <app-edit-task [currentTask]="currentTask" (taskAdded)="loadTasks()"></app-edit-task>
   </div>
 </div>

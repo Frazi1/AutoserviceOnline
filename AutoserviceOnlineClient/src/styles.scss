@@ -75,3 +75,15 @@ body {
   flex-grow: $grow;
   flex-shrink: $shrink;
 }
+
+@mixin double-layout-container-left($width) {
+  @include flex(0, 0, $width);
+  @extend .full-height;
+  @extend .overflow-auto;
+  border-right: 1px solid $separatorColor;
+}
+
+@mixin double-layout-container-right(){
+  flex-grow: 1;
+  @extend .overflow-auto;
+}

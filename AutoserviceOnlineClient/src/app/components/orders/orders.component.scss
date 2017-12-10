@@ -1,29 +1,20 @@
 @import "~styles.scss";
 
-.orders-container {
-  height: calc(100% - #{$navHeight});
-  display: flex;
-}
-
 .orders-list-container {
-  flex-basis: $ordersListWidth;
-  flex-grow: 0;
-  flex-shrink: 0;
-  height: 100%;
-  overflow: auto;
-
+  @include flex(0, 0, $ordersListWidth);
+  @extend .full-height;
+  @extend .overflow-auto;
   ul {
     list-style: none;
     padding: 0;
     margin: 0;
   }
   border-right: 1px solid $separatorColor;
-
 }
 
 .selected-order-container {
   flex-grow: 9;
-  overflow: auto;
+  @extend .overflow-auto;
 }
 
 .order-item {

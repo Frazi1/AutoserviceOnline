@@ -28,6 +28,14 @@ body {
 .full-width {
   width: 100%;
 }
+.full-height {
+  height: 100%;
+}
+
+.full-size {
+  @extend .full-width;
+  @extend .full-height;
+}
 
 .hidden {
   display: none;
@@ -35,4 +43,35 @@ body {
 
 .container {
   padding: 5px;
+}
+
+.content-container {
+  height: calc(100% - #{$navHeight});
+  display: flex;
+}
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.site-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  box-sizing: border-box;
+  @extend .full-height;
+  @extend .full-width;
+  background-color: $appBackground;
+  @extend .overflow-hidden;
+}
+
+@mixin flex($grow, $shrink, $basis){
+  flex-basis: $basis;
+  flex-grow: $grow;
+  flex-shrink: $shrink;
 }

@@ -1,16 +1,1 @@
 @import '~styles.scss';
-.content-container {
-  position: absolute;
-  top:0;
-  left:0;
-  margin: 0;
-  box-sizing: border-box;
-  width:100%;
-  height:100%;
-  background-color: $appBackground;
-  @extend .overflow-hidden;
-}
-
-.overflow-hidden {
-  overflow: hidden;
-}

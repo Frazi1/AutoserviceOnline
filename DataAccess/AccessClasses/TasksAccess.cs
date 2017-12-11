@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -13,9 +14,14 @@ namespace DataAccess
             return Db.Task.Find(id);
         }
 
-        public IEnumerable<Task> GetTasks()
+        public List<Task> GetTasks()
         {
             return Db.Task.ToList();
+        }
+
+        public List<Task> GetTasks(Func<Task, bool> predicate)
+        {
+            return Db.Task.Where(predicate).ToList();
         }
 
         public void AddTask(Task task)

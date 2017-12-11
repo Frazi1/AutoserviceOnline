@@ -4,11 +4,13 @@ import {Injectable} from '@angular/core';
 import {JsonOrder} from '../../interfaces/json-model/json-order';
 import {JsonCarConverter} from './json-car-converter';
 import {JsonCustomerConverter} from './json-customer-converter';
+import {JsonTaskConverter} from './json-task-converter';
 
 @Injectable()
 export class JsonOrderConverter extends JsonModelConverterBase<Order, JsonOrder> {
   private jsonCarConverter = new JsonCarConverter();
   private jsonCustomerConverter = new JsonCustomerConverter();
+  private jsonTaskConverter = new JsonTaskConverter();
   public getModelFromJson(json: JsonOrder): Order {
     return new Order(json.Id,
       json.Completed,
@@ -17,8 +19,8 @@ export class JsonOrderConverter extends JsonModelConverterBase<Order, JsonOrder>
       json.CompletionDate,
       json.Created,
       this.jsonCarConverter.getModelFromJson(json.Car),
-      this.jsonCustomerConverter.getModelFromJson(json.Customer)
-      );
+      this.jsonCustomerConverter.getModelFromJson(json.Customer),
+      this.jsonTaskConverter.getModelArrayFromJson(json.Tasks));
   }
 
   public getJsonFromModel(model: Order): JsonOrder {
@@ -34,7 +36,8 @@ export class JsonOrderConverter extends JsonModelConverterBase<Order, JsonOrder>
         : undefined,
       Customer: model.customer
         ? this.jsonCustomerConverter.getJsonFromModel(model.customer)
-        : undefined
+        : undefined,
+      Tasks: this.jsonTaskConverter.getJsonArrayFromModel(model.tasks)
     }
   }
 }

@@ -6,5 +6,6 @@ export interface JsonOrder {
   CustomerId,
   CarId,
   Car,
-  Customer
+  Customer,
+  Tasks
 }

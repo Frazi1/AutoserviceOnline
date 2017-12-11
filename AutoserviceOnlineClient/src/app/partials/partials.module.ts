@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {EditOrderComponent} from './edit-order/edit-order.component';
 import {MaterialModule} from '../modules/material/material.module';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {EditCustomerComponent} from './edit-customer/edit-customer.component';
 import {EditCarComponent} from './edit-car/edit-car.component';
 import {EditTaskComponent} from './edit-task/edit-task.component';
@@ -11,7 +11,8 @@ import {EditTaskComponent} from './edit-task/edit-task.component';
   imports: [
     CommonModule,
     MaterialModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     EditOrderComponent,

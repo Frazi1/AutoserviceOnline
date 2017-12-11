@@ -8,7 +8,7 @@ import { AddOrderComponent } from './add-order/add-order.component';
 import {RoutingModule} from '../modules/routing/routing.module';
 import {ServicesModule} from "../services/services.module";
 import { TasksComponent } from './tasks/tasks.component';
-import {FormsModule} from '@angular/forms';
+import {FormControl, FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [

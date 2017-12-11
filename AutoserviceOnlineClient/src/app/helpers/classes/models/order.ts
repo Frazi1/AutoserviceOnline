@@ -1,7 +1,15 @@
 import {Car} from './car';
 import {Customer} from './customer';
+import {Task} from './task';
 
 export class Order {
+  get tasks(): Task[] {
+    return this._tasks;
+  }
+
+  set tasks(value: Task[]) {
+    this._tasks = value;
+  }
   private _id: number;
   private _isCompleted: boolean;
   // private _carId: number;
@@ -10,6 +18,7 @@ export class Order {
   private _creationDate: Date;
   private _car: Car;
   private _customer: Customer;
+  private _tasks: Task[];
 
   constructor(id?: number,
               isCompleted: boolean = false,
@@ -18,7 +27,8 @@ export class Order {
               completionDate?: Date,
               creationDate: Date = new Date(Date.now()),
               car: Car = Car.empty,
-              customer: Customer = Customer.empty) {
+              customer: Customer = Customer.empty,
+              tasks: Task[] = []) {
     this.id = id;
     this.isCompleted = isCompleted;
     // this.carId = carId;
@@ -27,6 +37,7 @@ export class Order {
     this.creationDate = creationDate;
     this.car = car;
     this.customer = customer;
+    this.tasks = tasks;
   }
 
   public static get Empty(): Order {

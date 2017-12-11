@@ -4,9 +4,11 @@ import {OrdersService} from "../../services/load-data-services/orders.service";
 import {CustomersService} from "../../services/load-data-services/customers.service";
 import {Customer} from "../../helpers/classes/models/customer";
 import {ErrorService} from "../../services/error.service";
-import {STATES} from "../../modules/routing/states";
 import {Car} from "../../helpers/classes/models/car";
 import {CarsService} from "../../services/load-data-services/cars.service";
+import {FormControl} from '@angular/forms';
+import {TasksService} from '../../services/load-data-services/tasks.service';
+import {Task} from '../../helpers/classes/models/task';
 
 @Component({
   selector: 'app-edit-order',
@@ -20,18 +22,28 @@ export class EditOrderComponent implements OnInit {
   private _existingCustomers: Customer[];
   private _customerCars: Car[];
 
-  @Output() orderChanged: EventEmitter<Order> = new EventEmitter<Order>();
+  protected tasksFormControl: FormControl = new FormControl();
+  protected tasksList: Task[] = [];
+
+  @Output()
+  public orderChanged: EventEmitter<Order> = new EventEmitter<Order>();
+
 
   constructor(private ordersService: OrdersService,
               private customersService: CustomersService,
               private carsService: CarsService,
-              private errorService: ErrorService) {
+              private errorService: ErrorService,
+              private tasksService: TasksService) {
   }
 
   ngOnInit() {
     this.customersService.getItems()
-      .subscribe(value => this.existingCustomers = value);
-  }
+      .subscribe(value => this.existingCustomers = value,
+        err => this.errorService.handleError(err));
+    this.tasksService.getItems()
+      .subscribe(data => this.tasksList = data,
+        err => this.errorService.handleError(err));
+    }
 
   public remove(id: number): void {
     this.ordersService.deleteItem(id)
@@ -48,10 +60,13 @@ export class EditOrderComponent implements OnInit {
   }
 
   public addOrder(order: Order): void {
+    // console.log(this.tasksFormControl.value);
+    // return;
+    this.order.tasks = [];
+    this.tasksFormControl.value.forEach(data => this.order.tasks.push(data));
     this.ordersService.addItem(order)
       .subscribe(value => this.orderChanged.emit(value),
         err => this.errorService.handleError(err));
-    // .subscribe(value => this.router.navigate([STATES.STATE_ORDERS]));
   }
 
   //#region Properties

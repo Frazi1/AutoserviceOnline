@@ -34,10 +34,11 @@
       <mat-tab label="??">
         <div class="edit-order-content-container">
           <mat-checkbox [(ngModel)]="order.isCompleted">Order completed</mat-checkbox>
-          <div>
-            <input type="checkbox" [(ngModel)]="order.isCompleted">
-            <span>Order completed</span>
-          </div>
+          <mat-form-field>
+            <mat-select placeholder="Tasks" [formControl]="tasksFormControl" multiple>
+              <mat-option *ngFor="let task of tasksList" [value]="task">{{task.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
           <div *ngIf="isEditing">
             <span>Created: {{order.creationDate | date:'dd/MM/yyyy - HH:mm'}}</span>
           </div>

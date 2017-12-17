@@ -35,13 +35,13 @@ namespace AutoserviceOnlineServer.Controllers
         // GET: api/Tasks/5
         [HttpGet]
         [Route("{id}")]
-        [ResponseType(typeof(Task))]
+        [ResponseType(typeof(TaskDto))]
         public IHttpActionResult GetTask(int id)
         {
-            Task task;
+            TaskDto task;
             using (var tasksAccess = new TasksAccess())
             {
-                task = tasksAccess.GetTask(id);
+                task = Mapper.Map<TaskDto>(tasksAccess.GetTask(id));
             }
             if (task == null)
             {
@@ -55,20 +55,20 @@ namespace AutoserviceOnlineServer.Controllers
         [HttpPut]
         [Route("{id}")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult UpdateTask(int id, Task task)
+        public IHttpActionResult UpdateTask(int id, TaskDto taskDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != task.Id)
+            if (id != taskDto.Id)
             {
                 return BadRequest();
             }
             using (var tasksAccess = new TasksAccess())
             {
-                tasksAccess.UpdateTask(id, task);
+                tasksAccess.UpdateTask(id, Mapper.Map<TaskDto,Task>(taskDto));
             }
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -77,7 +77,7 @@ namespace AutoserviceOnlineServer.Controllers
         // POST: api/Tasks
         [HttpPost]
         [ResponseType(typeof(Task))]
-        public IHttpActionResult AddTask(Task task)
+        public IHttpActionResult AddTask(TaskDto taskDto)
         {
             if (!ModelState.IsValid)
             {
@@ -86,10 +86,10 @@ namespace AutoserviceOnlineServer.Controllers
 
             using (var tasksAccess = new TasksAccess())
             {
-                tasksAccess.AddTask(task);
+                tasksAccess.AddTask(Mapper.Map<TaskDto,Task>(taskDto));
             }
 
-            return CreatedAtRoute("DefaultApi", new {id = task.Id}, task);
+            return CreatedAtRoute("DefaultApi", new {id = taskDto.Id}, taskDto);
         }
 
         // DELETE: api/Tasks/5

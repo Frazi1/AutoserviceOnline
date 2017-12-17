@@ -21,7 +21,8 @@ namespace AutoserviceOnlineServer
             {
                 cfg.CreateMap<Order, OrderDto>();
                 cfg.CreateMap<Task, TaskDto>()
-                    .ForMember(dto => dto.Orders, expression => expression.Ignore());
+                    .ForMember(dto => dto.Orders, expression => expression.Ignore())
+                    .ReverseMap();
                 cfg.CreateMap<Workman, WorkmanDto>();
                 cfg.CreateMap<Car, CarDto>()
                     .ForMember(dto => dto.Order, e=>e.Ignore())

@@ -4,28 +4,23 @@ using DataAccess.Model;
 
 namespace DataAccess
 {
-    public class CarsAccess : IDisposable
+    public class CarsAccess : AccessBase<AutoserviceDb>
     {
-        private readonly AutoserviceDb _db = new AutoserviceDb();
 
         public IQueryable<Car> GetCustomerCars(int customerId)
         {
-            return _db.Car.Where(car => car.CustomerId == customerId);
+            return Db.Cars.Where(car => car.CustomerId == customerId);
         }
 
         public Car GetCar(int id)
         {
-            return _db.Car.Find(id);
+            return Db.Cars.Find(id);
         }
 
         public void AddCar(Car car)
         {
-            
-        }
-
-        public void Dispose()
-        {
-            _db?.Dispose();
+            Db.Cars.Add(car);
+            Db.SaveChanges();
         }
     }
 }

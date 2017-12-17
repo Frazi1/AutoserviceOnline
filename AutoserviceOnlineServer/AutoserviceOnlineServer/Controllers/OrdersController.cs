@@ -79,18 +79,34 @@ namespace AutoserviceOnlineServer.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        //[HttpPost]
+        //[Route("api/Orders/")]
+        //[ResponseType(typeof(void))]
+        //public IHttpActionResult AddOrder(OrderDto order)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return BadRequest(ModelState);
+        //    using (var ordersAccess = new OrdersAccess())
+        //    {
+        //        var result = ordersAccess.AddOrder(order);
+        //        return Created("DefaultApi", result);
+        //    }
+        //}
+
         [HttpPost]
-        [Route("api/Orders/")]
-        [ResponseType(typeof(void))]
-        public IHttpActionResult AddOrder(OrderDto order)
+        [Route("api/Orders/AddOrder")]
+        public IHttpActionResult AddOrder(OrderDto order, [FromUri]int customerId, [FromUri] int carId)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            using (var ordersAccess = new OrdersAccess())
+            order.CustomerId = customerId;
+            order.CarId = carId;
+            order.Car = null;
+            order.Customer = null;
+            Order o = Mapper.Map<Order>(order);
+            using (var orderAccess = new OrdersAccess())
             {
-                var result = ordersAccess.AddOrder(order);
-                return Created("DefaultApi", result);
+                orderAccess.AddOrder(o);
             }
+            return Ok(new {id = o.Id});
         }
 
         // DELETE: api/Orders/5
@@ -134,9 +150,9 @@ namespace AutoserviceOnlineServer.Controllers
         {
             if (!_db.Order.Any(o => o.CarId == order.CarId && o.Id != order.Id))
             {
-                Car car = _db.Car.Find(order.CarId);
+                Car car = _db.Cars.Find(order.CarId);
                 if (car != null)
-                    _db.Car.Remove(car);
+                    _db.Cars.Remove(car);
             }
         }
 

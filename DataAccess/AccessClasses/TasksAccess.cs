@@ -46,5 +46,14 @@ namespace DataAccess
         {
             return Db.Task.Count(e => e.Id == id) > 0;
         }
+
+        public void AppendToOrder(int taskId, int orderId)
+        {
+            var order = Db.Order.Find(orderId);
+            var task = Db.Task.Find(taskId);
+            order.Tasks.Add(task);
+            task.Orders.Add(order);
+            Db.SaveChanges();
+        }
     }
 }

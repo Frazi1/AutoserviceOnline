@@ -24,7 +24,7 @@ namespace AutoserviceOnlineServer.Controllers
         [Route("api/cars")]
         public IEnumerable<CarDto> Getcar()
         {
-            return Mapper.Map<IEnumerable<CarDto>>(_db.Car);
+            return Mapper.Map<IEnumerable<CarDto>>(_db.Cars);
         }
 
         // GET: api/Cars/5
@@ -32,7 +32,7 @@ namespace AutoserviceOnlineServer.Controllers
         [ResponseType(typeof(CarDto))]
         public IHttpActionResult Getcar(int id)
         {
-            CarDto car = Mapper.Map<CarDto>(_db.Car.Find(id));
+            CarDto car = Mapper.Map<CarDto>(_db.Cars.Find(id));
             if (car == null)
             {
                 return NotFound();
@@ -110,13 +110,13 @@ namespace AutoserviceOnlineServer.Controllers
         [ResponseType(typeof(Car))]
         public IHttpActionResult Deletecar(int id)
         {
-            Car car = _db.Car.Find(id);
+            Car car = _db.Cars.Find(id);
             if (car == null)
             {
                 return NotFound();
             }
 
-            _db.Car.Remove(car);
+            _db.Cars.Remove(car);
             _db.SaveChanges();
 
             return Ok(car);
@@ -130,6 +130,19 @@ namespace AutoserviceOnlineServer.Controllers
                 return Mapper.Map<IList<CarDto>>(carsAccess.GetCustomerCars(customerId).ToList());
         }
 
+        [HttpPost]
+        [Route("api/cars/AddCar")]
+        public IHttpActionResult AddCar(CarDto car, [FromUri] int customerId)
+        {
+            car.CustomerId = customerId;
+            Car carDb = Mapper.Map<Car>(car);
+            using (var carsAccess = new CarsAccess())
+            {
+                carsAccess.AddCar(carDb);
+            }
+            return Ok(new {id = carDb.Id});
+        }
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -141,7 +154,7 @@ namespace AutoserviceOnlineServer.Controllers
 
         private bool CarExists(int id)
         {
-            return _db.Car.Count(e => e.Id == id) > 0;
+            return _db.Cars.Count(e => e.Id == id) > 0;
         }
     }
 }

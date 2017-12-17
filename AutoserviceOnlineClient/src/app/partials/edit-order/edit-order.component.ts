@@ -1,14 +1,16 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Order} from '../../helpers/classes/models/order';
-import {OrdersService} from "../../services/load-data-services/orders.service";
-import {CustomersService} from "../../services/load-data-services/customers.service";
-import {Customer} from "../../helpers/classes/models/customer";
-import {ErrorService} from "../../services/error.service";
-import {Car} from "../../helpers/classes/models/car";
-import {CarsService} from "../../services/load-data-services/cars.service";
+import {OrdersService} from '../../services/load-data-services/orders.service';
+import {CustomersService} from '../../services/load-data-services/customers.service';
+import {Customer} from '../../helpers/classes/models/customer';
+import {ErrorService} from '../../services/error.service';
+import {Car} from '../../helpers/classes/models/car';
+import {CarsService} from '../../services/load-data-services/cars.service';
 import {FormControl} from '@angular/forms';
 import {TasksService} from '../../services/load-data-services/tasks.service';
 import {Task} from '../../helpers/classes/models/task';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/timer';
 
 @Component({
   selector: 'app-edit-order',
@@ -43,7 +45,7 @@ export class EditOrderComponent implements OnInit {
     this.tasksService.getItems()
       .subscribe(data => this.tasksList = data,
         err => this.errorService.handleError(err));
-    }
+  }
 
   public remove(id: number): void {
     this.ordersService.deleteItem(id)
@@ -54,7 +56,7 @@ export class EditOrderComponent implements OnInit {
   public saveOrder(item: Order): void {
     this.ordersService.editItem(item.id, item)
       .subscribe(value => {
-          this.orderChanged.emit(value)
+          this.orderChanged.emit(value);
         },
         err => this.errorService.handleError(err));
   }
@@ -63,12 +65,34 @@ export class EditOrderComponent implements OnInit {
     // console.log(this.tasksFormControl.value);
     // return;
     this.order.tasks = [];
-    if(this.tasksFormControl.value) {
-      this.tasksFormControl.value.forEach(data => this.order.tasks.push(data));
+    // if(this.tasksFormControl.value) {
+    // this.tasksFormControl.value.forEach(data => this.order.tasks.push(data));
+    // }
+    this.processCustomer(order.customer)
+      .subscribe(customerId => this.processCar(order.car, customerId)
+        .subscribe(carId =>this.ordersService.addOrder(order, customerId, carId)
+          .subscribe(value => this.orderChanged.emit(),err => this.errorService.handleError(err))));
+  }
+
+  private processCustomer(customer: Customer): Observable<number> {
+    if (!customer.id) {
+      return this.customersService.addItem(customer)
+        .map(data => {
+          customer.id = data;
+          return data;
+        });
     }
-    this.ordersService.addItem(order)
-      .subscribe(value => this.orderChanged.emit(value),
-        err => this.errorService.handleError(err));
+    return Observable.timer(0).map(value => customer.id);
+  }
+
+  private processCar(car: Car, customerId: number): Observable<number> {
+    if (!car.id) {
+      return this.carsService.addCar(car, customerId).map(data => {
+        car.id = data;
+        return data;
+      });
+    }
+    return Observable.timer(0).map(value => car.id);
   }
 
   //#region Properties
@@ -108,15 +132,15 @@ export class EditOrderComponent implements OnInit {
     this._existingCustomers = value;
   }
 
-  get emptyCustomer() : Customer {
+  get emptyCustomer(): Customer {
     return Customer.empty;
   }
 
-  get emptyCar() : Car {
+  get emptyCar(): Car {
     return Car.empty;
   }
 
-  get customerCars() : Car[]{
+  get customerCars(): Car[] {
     return this._customerCars;
   }
 
@@ -124,7 +148,7 @@ export class EditOrderComponent implements OnInit {
     return this.order.car;
   }
 
-  set orderCar(car: Car){
+  set orderCar(car: Car) {
     this.order.car = car;
 
   }
@@ -135,7 +159,7 @@ export class EditOrderComponent implements OnInit {
 
   set orderCustomer(customer: Customer) {
     this.order.customer = customer;
-    if(customer.id) {
+    if (customer.id) {
       this.carsService.getCustomerCars(customer.id)
         .subscribe(data => this._customerCars = data,
           err => this.errorService.handleError(err));

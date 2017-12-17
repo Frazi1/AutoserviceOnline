@@ -21,8 +21,12 @@ export class DataServiceBase<TModel, TJsonModel> {
       .map(response => this.converter.getModelFromJson(response.json()));
   }
 
-  public addItem(model: TModel): Observable<any> {
-    return this.http.post(this.endPointUrl, this.converter.getJsonFromModel(model));
+  public addItem(model: TModel): Observable<number> {
+    return this.http.post(this.endPointUrl, this.converter.getJsonFromModel(model))
+      .map(data => {
+        console.log(data);
+        return data.json().id;
+      });
   }
 
   public deleteItem(id: number): Observable<any> {

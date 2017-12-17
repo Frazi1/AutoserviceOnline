@@ -21,7 +21,7 @@ namespace DataAccess
             Database.SetInitializer(DatabaseInitializer);
         }
 
-        public virtual DbSet<Car> Car { get; set; }
+        public virtual DbSet<Car> Cars { get; set; }
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<Task> Task { get; set; }

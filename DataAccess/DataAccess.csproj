@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessClasses\AccessBase.cs" />
+    <Compile Include="AccessClasses\CustomerAccess.cs" />
     <Compile Include="AccessClasses\TasksAccess.cs" />
     <Compile Include="AutoserviceDb.cs" />
     <Compile Include="AccessClasses\CarsAccess.cs" />

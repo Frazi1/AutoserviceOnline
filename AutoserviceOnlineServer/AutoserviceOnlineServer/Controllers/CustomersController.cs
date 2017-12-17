@@ -94,7 +94,6 @@ namespace AutoserviceOnlineServer.Controllers
         //    return CreatedAtRoute("DefaultApi", new { id = resultDto.Id }, resultDto.Id);
         //}
         [HttpPost]
-        [Route("api/Customers")]
         public IHttpActionResult AddCustomer(CustomerDto customerDto)
         {
             var customer = Mapper.Map<Customer>(customerDto);
@@ -104,16 +103,10 @@ namespace AutoserviceOnlineServer.Controllers
             return Ok(new {id = resultDto.Id});
         }
 
-        [HttpGet]
-        [Route("api/Customers/Test")]
-        public int Test()
-        {
-            return 228;
-        }
-        
         // DELETE: api/Customers/5
-        [ResponseType(typeof(Customer))]
         [Route("{id}")]
+        [HttpDelete]
+        [ResponseType(typeof(Customer))]
         public IHttpActionResult Deletecustomer(int id)
         {
             Customer customer = _db.Customer.Find(id);

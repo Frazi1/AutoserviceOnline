@@ -2,28 +2,30 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using AutoMapper;
+using AutoserviceOnlineServer.Model.Dto;
 using DataAccess.Model;
 
 namespace DataAccess
 {
     public class OrdersAccess : AccessBase<AutoserviceDb>
     {
-        public Order AddOrder(Order orderModel)
+        public OrderDto AddOrder(OrderDto orderDto)
         {
             var resultOrder = new Order
             {
-                Completed = orderModel.Completed,
-                Created = orderModel.Created,
-                Customer = orderModel.CustomerId > 0 ? Db.Customer.Find(orderModel.CustomerId) : orderModel.Customer
+                Completed = orderDto.Completed,
+                Created = orderDto.Created,
+                Customer = orderDto.CustomerId > 0 ? Db.Customer.Find(orderDto.CustomerId) : Mapper.Map<Customer>(orderDto.Customer)
             };
 
-            if (orderModel.CarId > 0)
+            if (orderDto.CarId > 0)
             {
-                resultOrder.Car = Db.Car.Find(orderModel.CarId);
+                resultOrder.Car = Db.Car.Find(orderDto.CarId);
             }
             else
             {
-                var car = orderModel.Car;
+                var car = Mapper.Map<Car>(orderDto.Car);
                 var customer = resultOrder.Customer;
 
                 resultOrder.Car = car;
@@ -38,7 +40,7 @@ namespace DataAccess
             //Todo: tasks and workmans
             Db.Order.Add(resultOrder);
 
-            var tasksIds = orderModel.Tasks.Select(task => task.Id).ToList();
+            var tasksIds = orderDto.Tasks.Select(task => task.Id).ToList();
             //var loadedTasks = Db.Task.ToList();
             var dbTasks = Db.Task.Where(task => tasksIds.Contains(task.Id)).ToList();
             foreach (Task task in dbTasks)
@@ -50,7 +52,7 @@ namespace DataAccess
                 resultOrder.Tasks.Add(task);
             }
             Db.SaveChanges();
-            return resultOrder;
+            return Mapper.Map<OrderDto>(resultOrder);
         }
     }
 }

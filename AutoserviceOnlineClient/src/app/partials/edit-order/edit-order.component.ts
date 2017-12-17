@@ -63,7 +63,9 @@ export class EditOrderComponent implements OnInit {
     // console.log(this.tasksFormControl.value);
     // return;
     this.order.tasks = [];
-    this.tasksFormControl.value.forEach(data => this.order.tasks.push(data));
+    if(this.tasksFormControl.value) {
+      this.tasksFormControl.value.forEach(data => this.order.tasks.push(data));
+    }
     this.ordersService.addItem(order)
       .subscribe(value => this.orderChanged.emit(value),
         err => this.errorService.handleError(err));

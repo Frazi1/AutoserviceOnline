@@ -8,6 +8,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using AutoMapper;
+using AutoserviceOnlineServer.Model.Dto;
 using DataAccess;
 using DataAccess.Model;
 
@@ -20,17 +22,17 @@ namespace AutoserviceOnlineServer.Controllers
 
         // GET: api/Cars
         [Route("api/cars")]
-        public IQueryable<Car> Getcar()
+        public IEnumerable<CarDto> Getcar()
         {
-            return _db.Car;
+            return Mapper.Map<IEnumerable<CarDto>>(_db.Car);
         }
 
         // GET: api/Cars/5
         [Route("api/cars/{id}")]
-        [ResponseType(typeof(Car))]
+        [ResponseType(typeof(CarDto))]
         public IHttpActionResult Getcar(int id)
         {
-            Car car = _db.Car.Find(id);
+            CarDto car = Mapper.Map<CarDto>(_db.Car.Find(id));
             if (car == null)
             {
                 return NotFound();
@@ -41,7 +43,7 @@ namespace AutoserviceOnlineServer.Controllers
 
         // PUT: api/Cars/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult Putcar(int id, Car car)
+        public IHttpActionResult Putcar(int id, CarDto car)
         {
             if (!ModelState.IsValid)
             {
@@ -122,10 +124,10 @@ namespace AutoserviceOnlineServer.Controllers
 
         [HttpGet]
         [Route("api/cars/GetCustomerCars/")]
-        public IList<Car> GetCustomerCars([FromUri] int customerId=0)
+        public IList<CarDto> GetCustomerCars([FromUri] int customerId=0)
         {
             using (var carsAccess = new CarsAccess())
-                return carsAccess.GetCustomerCars(customerId).ToList();
+                return Mapper.Map<IList<CarDto>>(carsAccess.GetCustomerCars(customerId).ToList());
         }
 
         protected override void Dispose(bool disposing)

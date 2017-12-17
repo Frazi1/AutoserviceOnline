@@ -82,7 +82,7 @@ namespace AutoserviceOnlineServer.Controllers
         [HttpPost]
         [Route("api/Orders/")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult AddOrder(Order order)
+        public IHttpActionResult AddOrder(OrderDto order)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

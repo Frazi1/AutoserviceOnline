@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoserviceOnlineServer", "AutoserviceOnlineServer\AutoserviceOnlineServer.csproj", "{F56F8E78-6D84-4D9F-ABDE-D35094437E5F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "..\DataAccess\DataAccess.csproj", "{1F2CB7BD-21A0-44A7-A44C-EB125DA606B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoserviceOnlineServer.Tests", "AutoserviceOnlineServer.Tests\AutoserviceOnlineServer.Tests.csproj", "{08A55289-42CC-4041-AE1E-5CF0D8487DB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{1F2CB7BD-21A0-44A7-A44C-EB125DA606B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F2CB7BD-21A0-44A7-A44C-EB125DA606B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F2CB7BD-21A0-44A7-A44C-EB125DA606B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08A55289-42CC-4041-AE1E-5CF0D8487DB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08A55289-42CC-4041-AE1E-5CF0D8487DB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08A55289-42CC-4041-AE1E-5CF0D8487DB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08A55289-42CC-4041-AE1E-5CF0D8487DB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

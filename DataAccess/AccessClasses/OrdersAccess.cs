@@ -37,9 +37,10 @@ namespace DataAccess
 
             //Todo: tasks and workmans
             Db.Order.Add(resultOrder);
-        
-            var loadedTasks = Db.Task.ToList();
-            var dbTasks = loadedTasks.Where(task => orderModel.Tasks.FirstOrDefault(t => t.Id == task.Id) != null);
+
+            var tasksIds = orderModel.Tasks.Select(task => task.Id).ToList();
+            //var loadedTasks = Db.Task.ToList();
+            var dbTasks = Db.Task.Where(task => tasksIds.Contains(task.Id)).ToList();
             foreach (Task task in dbTasks)
             {
                 if (task.Orders == null)

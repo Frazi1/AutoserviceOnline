@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -8,6 +9,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using AutoMapper;
+using AutoserviceOnlineServer.Model.Dto;
 using DataAccess;
 using DataAccess.Model;
 
@@ -18,11 +21,16 @@ namespace AutoserviceOnlineServer.Controllers
     {
         // GET: api/Tasks
         [HttpGet]
-        public IEnumerable<Task> GetTasks()
+        public IEnumerable<TaskDto> GetTasks()
         {
             using (var tasksAccess = new TasksAccess())
-                return tasksAccess.GetTasks();
+            {
+                var taskDtos = Mapper.Map<IEnumerable<Task>, IEnumerable<TaskDto>>(tasksAccess.GetTasks());
+                return taskDtos;
+            }
+            //return new List<TaskDto> {new TaskDto {Name = "test", Price = 200}};
         }
+
 
         // GET: api/Tasks/5
         [HttpGet]
@@ -81,7 +89,7 @@ namespace AutoserviceOnlineServer.Controllers
                 tasksAccess.AddTask(task);
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = task.Id }, task);
+            return CreatedAtRoute("DefaultApi", new {id = task.Id}, task);
         }
 
         // DELETE: api/Tasks/5

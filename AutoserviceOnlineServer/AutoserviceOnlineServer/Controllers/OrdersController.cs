@@ -5,6 +5,8 @@ using System.Linq;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
+using AutoMapper;
+using AutoserviceOnlineServer.Model.Dto;
 using DataAccess;
 using DataAccess.Model;
 
@@ -17,9 +19,10 @@ namespace AutoserviceOnlineServer.Controllers
         // GET: api/Orders
         [HttpGet]
         [Route("api/Orders")]
-        public IEnumerable<Order> Getorder()
+        public IEnumerable<OrderDto> Getorder()
         {
-            return _db.Order.ToList();
+            //return _db.Order.ToList();
+            return Mapper.Map<IEnumerable<Order>, IEnumerable<OrderDto>>(_db.Order.ToList()).ToList();
         }
 
         // GET: api/Orders/5

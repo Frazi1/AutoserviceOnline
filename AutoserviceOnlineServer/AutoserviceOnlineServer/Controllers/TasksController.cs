@@ -108,5 +108,14 @@ namespace AutoserviceOnlineServer.Controllers
                 return Ok(task);
             }
         }
+
+        [HttpPost]
+        [Route("AppendToOrder")]
+        public IHttpActionResult AddTasksToOrder(int[] tasksIds, [FromUri] int orderId)
+        {
+            using(var tasksAccess = new TasksAccess())
+                tasksAccess.AppendToOrder(tasksIds, orderId);
+            return Ok();
+        }
     }
 }

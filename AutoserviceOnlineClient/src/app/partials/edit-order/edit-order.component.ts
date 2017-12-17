@@ -64,14 +64,28 @@ export class EditOrderComponent implements OnInit {
   public addOrder(order: Order): void {
     // console.log(this.tasksFormControl.value);
     // return;
-    this.order.tasks = [];
-    // if(this.tasksFormControl.value) {
-    // this.tasksFormControl.value.forEach(data => this.order.tasks.push(data));
-    // }
+    let tasksIds = [];
+    if (this.tasksFormControl.value) {
+      this.tasksFormControl.value.forEach(task => tasksIds.push(task.id));
+    }
     this.processCustomer(order.customer)
       .subscribe(customerId => this.processCar(order.car, customerId)
-        .subscribe(carId =>this.ordersService.addOrder(order, customerId, carId)
-          .subscribe(value => this.orderChanged.emit(),err => this.errorService.handleError(err))));
+        .subscribe(carId => this.processOrder(order, customerId, carId)
+          .subscribe(orderId => {
+            this.tasksService.appendTasksToOrder(tasksIds, orderId)
+              .subscribe(response => this.orderChanged.emit());
+          },err => this.errorService.handleError(err))));
+  }
+
+  private processOrder(order: Order, customerId, carId): Observable<number> {
+    if(!order.id){
+      return this.ordersService.addOrder(order, customerId, carId)
+        .map(data => {
+          order.id = data;
+          return data;
+        });
+    }
+    return Observable.timer(0).map(value => order.id);
   }
 
   private processCustomer(customer: Customer): Observable<number> {

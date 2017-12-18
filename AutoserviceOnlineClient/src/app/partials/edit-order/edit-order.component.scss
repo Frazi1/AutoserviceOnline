@@ -4,13 +4,18 @@
   margin-top: 5px;
   flex-direction: column;
   display: inline-block;
+  width: 500px;
 }
 
 .edit-order-content-container {
   margin: 20px;
 }
 
-.customer-selector {
-  width: 100%;
-  margin-bottom: 46px;
+//.customer-selector {
+//  width: 100%;
+//  margin-bottom: 46px;
+//}
+
+.items-selector {
+  width: 250px;
 }

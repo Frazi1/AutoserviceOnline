@@ -96,6 +96,10 @@ namespace AutoserviceOnlineServer.Controllers
         [HttpPost]
         public IHttpActionResult AddCustomer(CustomerDto customerDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var customer = Mapper.Map<Customer>(customerDto);
             _db.Customer.Add(customer);
             _db.SaveChanges();

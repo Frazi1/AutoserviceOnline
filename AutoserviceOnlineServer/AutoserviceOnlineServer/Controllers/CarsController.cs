@@ -134,6 +134,15 @@ namespace AutoserviceOnlineServer.Controllers
         [Route("api/cars/AddCar")]
         public IHttpActionResult AddCar(CarDto car, [FromUri] int customerId)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (customerId <= 0)
+            {
+                return BadRequest(customerId.ToString());
+            }
             car.CustomerId = customerId;
             Car carDb = Mapper.Map<Car>(car);
             using (var carsAccess = new CarsAccess())

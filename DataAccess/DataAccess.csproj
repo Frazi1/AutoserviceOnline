@@ -79,6 +79,9 @@
     <Compile Include="Model\Car.cs" />
     <Compile Include="Model\Customer.cs" />
     <Compile Include="Model\Dto\CarDto.cs" />
+    <Compile Include="Model\Dto\OrderDto.cs" />
+    <Compile Include="Model\Dto\TaskDto.cs" />
+    <Compile Include="Model\Dto\WorkmanDto.cs" />
     <Compile Include="Model\Order.cs" />
     <Compile Include="AccessClasses\OrdersAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

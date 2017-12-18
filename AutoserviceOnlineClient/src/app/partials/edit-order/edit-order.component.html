@@ -6,34 +6,41 @@
     <mat-tab-group>
       <mat-tab label="Customer">
         <div class="edit-order-content-container">
-          <select [ngClass]="{'hidden' :
-                      isEditing||!existingCustomers||existingCustomers.length<=0}"
-                  class="customer-selector" [(ngModel)]="orderCustomer">
-            <option [ngValue]="emptyCustomer">New customer</option>
-            <option *ngFor="let item of existingCustomers" [ngValue]="item">
-              {{item.id}}. {{item.lastName}} {{item.firstName}}
-            </option>
-
-          </select>
+          <div>
+            <mat-form-field [ngClass]="{'hidden' : isEditing||!existingCustomers||existingCustomers.length<=0}">
+              <mat-select class="customer-selector" placeholder="Select customer" [(ngModel)]="orderCustomer">
+                <mat-option [value]="emptyCustomer">New customer</mat-option>
+                <mat-option *ngFor="let item of existingCustomers" [value]="item">
+                  {{item.id}}. {{item.lastName}} {{item.firstName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
           <app-edit-customer [customer]="order.customer"></app-edit-customer>
         </div>
       </mat-tab>
 
       <mat-tab label="Car">
-        <select class="customer-selector" [ngClass]="{'hidden' : isEditing}" [(ngModel)]="orderCar">
-          <option [ngValue]="emptyCar">New car</option>
-          <option *ngFor="let item of customerCars" [ngValue]="item">
-            {{item.id + '. ' +item.manufacturer + ' ' + item.model }}
-          </option>
-        </select>
+
         <div class="edit-order-content-container">
+          <mat-form-field [ngClass]="{'hidden' : isEditing}">
+            <mat-select class="customer-selector"  [(ngModel)]="orderCar"
+                        placeholder="Select car">
+              <mat-option [value]="emptyCar">New car</mat-option>
+              <mat-option *ngFor="let item of customerCars" [value]="item">
+                {{item.id + '. ' +item.manufacturer + ' ' + item.model }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
           <app-edit-car [car]="order.car"></app-edit-car>
         </div>
       </mat-tab>
 
-      <mat-tab label="??">
+      <mat-tab label="Tasks">
         <div class="edit-order-content-container">
-          <mat-checkbox [(ngModel)]="order.isCompleted">Order completed</mat-checkbox>
+          <div>
+            <mat-checkbox [(ngModel)]="order.isCompleted">Order completed</mat-checkbox>
+          </div>
           <mat-form-field *ngIf="!isEditing">
             <mat-select placeholder="Tasks" [formControl]="tasksFormControl" multiple>
               <mat-option *ngFor="let task of tasksList" [value]="task">{{task.name}}</mat-option>

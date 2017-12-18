@@ -97,6 +97,17 @@ namespace AutoserviceOnlineServer.Controllers
         [Route("api/Orders/AddOrder")]
         public IHttpActionResult AddOrder(OrderDto order, [FromUri]int customerId, [FromUri] int carId)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (customerId <= 0 || carId <= 0)
+            {
+                return BadRequest(customerId <= 0 ? customerId.ToString() : carId.ToString());
+            }
+            
+            
             order.CustomerId = customerId;
             order.CarId = carId;
             order.Car = null;

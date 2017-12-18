@@ -168,7 +168,9 @@ export class EditOrderComponent implements OnInit {
   }
 
   get orderCustomer(): Customer {
-    return this.order.customer;
+    if(this.order.customer) {
+      return this.order.customer;
+    }
   }
 
   set orderCustomer(customer: Customer) {
